@@ -10,32 +10,34 @@ body {
     background-size: cover;
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 2vw;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0.521vw 1.042vw;
+    position: sticky;
 }
 
 .logo img {
-    max-width: 50px;
+    max-width: 52.604vw;
 }
 
 .menu {
     display: flex;
-    gap: 10px;
+    gap: 0.521vw;
 }
 
 .menu .btn {
     background-color: #1f3d5a;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 0.521vw 1.042vw;
+    border-radius: 0.26vw;
     text-decoration: none;
     font-weight: bold;
+    margin-right: 2vw;
 }
 
 .menu .btn:hover {
@@ -43,12 +45,12 @@ header {
 }
 
 main {
-    margin-top: 50px;
+    margin-top: 2.604vw;
 }
 
 h1 {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 1.563vw;
 }
 
 h1 span {
@@ -63,9 +65,6 @@ h1 span {
     font-size: 2rem;
     border: none;
     cursor: pointer;
+    margin: 3vw;
     margin-right: 3vw;
-}
-
-.btn-left:hover, .btn-right:hover {
-    color: #00ff00;
 }
