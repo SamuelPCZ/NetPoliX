@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/StylesInicioSesion.css">
+</head>
+<body>
+<main>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="/Imagenes/Logo.png" alt="Logo">
+            </div>
+            <form action="/perform_login" method="post">
+                <div class="input-group">
+                    <span class="icon">
+                        <img src="/Imagenes/Correo.png" alt="Icono correo">
+                    </span>
+                    <input type="email" name="username" placeholder="TuCorreo@correo.com" required>
+                </div>
+                <div class="input-group">
+                    <span class="icon">
+                        <img src="/Imagenes/Candado.png" alt="Icono candado">
+                    </span>
+                    <input type="password" name="password" placeholder="ClaveSuperSecreta" required>
+                </div>
+                <button type="submit" class="btnOk">Ok</button>
+            </form>
+            <div class="links">
+                <a href="/login">Iniciar sesión</a>
+                <a href="/register">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
