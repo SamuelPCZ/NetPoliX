@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url(Imagenes/Fondo1.jpg);
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 2vw;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.521vw 1.042vw;
+    position: sticky;
+}
+
+.logo img {
+    max-width: 52.604vw;
+}
+
+.menu {
+    display: flex;
+    gap: 0.521vw;
+}
+
+.menu .btn {
+    background-color: #1f3d5a;
+    color: white;
+    padding: 0.521vw 1.042vw;
+    border-radius: 0.26vw;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 2vw;
+}
+
+.menu .btn:hover {
+    background-color: #3e5a77;
+}
+
+main {
+    margin-top: 2.604vw;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.563vw;
+}
+
+h1 span {
+    color: white;
+}
+
+
+
+.btn-left, .btn-right {
+    background-color: transparent;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    margin: 3vw;
+    margin-right: 3vw;
+}

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="icon" href="Imagenes/Logo.png" type="image/png">
-    <link rel="stylesheet" href="StylesRegistro.css">
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/StylesRegistro.css">
 </head>
 <body>
     <div class="container">
         <!-- Logo Superior -->
         <div class="logo">
-            <img src="Imagenes/Logo.png" alt="Logo">
+            <a th:href="@{/home}" class="logo">
+                <img src="Imagenes/Logo.png" alt="Logo">
+            </a>
         </div>
         
         <!-- Formulario -->
@@ -53,8 +55,8 @@
 
             <!-- Links para iniciar sesión o registrarse -->
             <div class="links">
-                <a href="InicioSesion.html">Iniciar sesión</a>
-                <a href="#">Registrarse</a>
+                <a th:href="@{/IniciarSesion}">Iniciar sesión</a>
+                <a th:href="@{/Registrarse}">Registrarse</a>
             </div>
         </form>
     </div>

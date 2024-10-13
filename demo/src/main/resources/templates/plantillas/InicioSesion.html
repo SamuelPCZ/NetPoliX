@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="icon" href="Imagenes/Logo.png" type="image/png">
-    <link rel="stylesheet" href="StylesInicioSesion.css">
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/StylesInicioSesion.css">
 </head>
 <body>
     <main>
         <div class="login-container">
             <div class="login-box">
                 <div class="logo">
-                    <img src="Imagenes/Logo.png" alt="Logo">
+                    <a th:href="@{/home}" class="logo">
+                        <img src="Imagenes/Logo.png" alt="Logo">
+                    </a>
                 </div>
                 <form action="">
                     <div class="input-group">
@@ -31,8 +33,8 @@
                     <button type="submit" class="btnOk">Ok</button>
                 </form>
                 <div class="links">
-                    <a href="#">Iniciar sesión</a>
-                    <a href="Registrarse.html">Registrarse</a>
+                    <a th:href="@{/IniciarSesion}">Iniciar sesión</a>
+                    <a th:href="@{/Registrarse}">Registrarse</a>
                 </div>
             </div>
         </div>
