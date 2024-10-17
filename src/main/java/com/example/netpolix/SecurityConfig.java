@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/login", "/home", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css").permitAll()
+                        .requestMatchers("/", "/Registrarse", "/IniciarSesion", "/home", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css").permitAll()
                         .requestMatchers("/usuarioPrincipal").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 );
+
         return http.build();
     }
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/StylesRegistro.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Superior -->
+        <div class="logo">
+            <a th:href="@{/home}" class="logo">
+                <img src="Imagenes/Logo.png" alt="Logo">
+            </a>
+        </div>
+        
+        <!-- Formulario -->
+        <form class="formulario">
+            <!-- Input con ícono de correo -->
+            <div class="input-group">
+                <span class="icon">
+                    <img src="Imagenes/Correo.png" alt="Correo">
+                </span>
+                <input type="email" placeholder="Ingresa tu correo" required>
+            </div>
+            
+            <!-- Input con ícono de clave -->
+            <div class="input-group">
+                <span class="icon">
+                    <img src="Imagenes/Candado.png" alt="Clave">
+                </span>
+                <input type="password" placeholder="Ingresa una clave" required>
+            </div>
+            
+            <!-- Input con ícono de usuario -->
+            <div class="input-group">
+                <span class="icon">
+                    <img src="Imagenes/Usuario.png" alt="Usuario">
+                </span>
+                <input type="text" placeholder="Nombre de usuario" required>
+            </div>
+
+            <!-- Input con ícono de fecha -->
+            <div class="input-group">
+                <span class="icon">
+                    <img src="Imagenes/Calendario.png" alt="Fecha">
+                </span>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+
+            <!-- Botón de enviar -->
+            <button type="submit" class="submit-btn">Ok</button>
+
+            <!-- Links para iniciar sesión o registrarse -->
+            <div class="links">
+                <a th:href="@{/IniciarSesion}">Iniciar sesión</a>
+                <a th:href="@{/Registrarse}">Registrarse</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
