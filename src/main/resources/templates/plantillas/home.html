@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +10,15 @@
 <body>
 <header>
     <div class="logo">
-        <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+        <a th:href="@{/home}" class="logo">
+            <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+        </a>
     </div>
     <div class="menu">
-        <a href="/login" class="btn">Iniciar sesión</a>
-        <a href="/register" class="btn">Registrarse</a>
+        <a th:href="@{/IniciarSesion}" class="btn">Iniciar sesión</a>
+        <a th:href="@{/Registrarse}" class="btn">Registrarse</a>
     </div>
 </header>
-
 <main>
     <h1>¡Compra o alquila las mejores películas y series del mercado en: <br><span>NetPoliX</span>!</h1>
 </main>

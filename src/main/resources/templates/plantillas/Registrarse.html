@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,44 +9,43 @@
 </head>
 <body>
 <div class="container">
+    <!-- Logo Superior -->
     <div class="logo">
-        <img src="/Imagenes/Logo.png" alt="Logo">
+        <a th:href="@{/home}" class="logo">
+            <img src="Imagenes/Logo.png" alt="Logo">
+        </a>
     </div>
 
-    <form class="formulario" action="/register" method="post">
+    <!-- Formulario -->
+    <form class="formulario" th:action="@{/Registrarse}" method="post">
         <div class="input-group">
-                <span class="icon">
-                    <img src="/Imagenes/Correo.png" alt="Correo">
-                </span>
+        <span class="icon">
+            <img src="Imagenes/Correo.png" alt="Correo">
+        </span>
             <input type="email" name="email" placeholder="Ingresa tu correo" required>
         </div>
 
         <div class="input-group">
-                <span class="icon">
-                    <img src="/Imagenes/Candado.png" alt="Clave">
-                </span>
+        <span class="icon">
+            <img src="Imagenes/Candado.png" alt="Clave">
+        </span>
             <input type="password" name="contraseña" placeholder="Ingresa una clave" required>
         </div>
 
         <div class="input-group">
-                <span class="icon">
-                    <img src="/Imagenes/Usuario.png" alt="Usuario">
-                </span>
+        <span class="icon">
+            <img src="Imagenes/Usuario.png" alt="Usuario">
+        </span>
             <input type="text" name="nombreUsuario" placeholder="Nombre de usuario" required>
         </div>
 
         <button type="submit" class="submit-btn">Ok</button>
-
-        <div class="links">
-            <a href="/login">Iniciar sesión</a>
-            <a href="#">Registrarse</a>
-        </div>
     </form>
 
-    <!-- Mensajes de éxito y error -->
-    <div class="messages">
-        <p th:if="${successMessage}" th:text="${successMessage}" class="success"></p>
-        <p th:if="${errorMessage}" th:text="${errorMessage}" class="error"></p>
+    <!-- Links para iniciar sesión o registrarse -->
+    <div class="links">
+        <a th:href="@{/IniciarSesion}" class="link-btn">Iniciar sesión</a>
+        <a th:href="@{/Registrarse}" class="link-btn">Registrarse</a>
     </div>
 </div>
 </body>

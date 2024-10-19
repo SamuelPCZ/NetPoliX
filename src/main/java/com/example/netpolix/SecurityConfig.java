@@ -29,15 +29,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/register", "/login", "/home", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css").permitAll()
+                        .requestMatchers("/", "/home", "/IniciarSesion", "/Registrarse", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css").permitAll()
                         .requestMatchers("/usuarioPrincipal").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/InicioSesion")
                         .loginProcessingUrl("/perform_login")
                         .defaultSuccessUrl("/usuarioPrincipal", true)
-                        .failureUrl("/login?error=true")
+                        .failureUrl("/InicioSesion?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout

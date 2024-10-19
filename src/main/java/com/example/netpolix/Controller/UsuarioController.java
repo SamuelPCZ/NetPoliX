@@ -11,6 +11,6 @@ public class UsuarioController {
     @GetMapping("/usuarioPrincipal")
     public String showUsuarioPrincipal() {
         log.info("Accessing /usuarioPrincipal");
-        return "UsuarioPrincipal";
+        return "plantillas/UsuarioPrincipal";
     }
 }
