@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal del Usuario</title>
+    <title>Consultar Saldo</title>
     <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
     <link rel="stylesheet" href="/Styles.css">
 </head>
@@ -18,17 +18,16 @@
 </header>
 
 <main>
-    <h1>Bienvenido a tu página principal <span th:text="${usuarioNombre}"></span></h1>
+    <h1>Consultar Saldo</h1>
+    <p>Nombre de usuario: <span th:text="${usuario.nombreUsuario}"></span></p>
+    <p>Email: <span th:text="${usuario.email}"></span></p>
+    <p>Saldo actual: <span th:text="${usuario.saldo}"></span></p>
+    <p>Puntos actuales: <span th:text="${usuario.puntos}"></span></p>
 
     <div class="button-container">
-        <a href="/buscarVideos" class="btn">Buscar Videos</a>
-        <a href="/misCalificaciones" class="btn">Mis Calificaciones</a>
-        <a href="/misColecciones" class="btn">Mis Colecciones</a>
-        <a href="/historialCompras" class="btn">Historial de Compras y Alquileres</a>
-        <a href="/consultarSaldo" class="btn">Consultar Saldo</a>
-        <a href="/promocionesOfertas" class="btn">Promociones y Ofertas</a>
-        <a href="/notificacionesEstrenos" class="btn">Notificaciones de Estrenos</a>
+        <a href="/usuarioPrincipal" class="btn">Página Principal</a>
         <a href="/referidosPuntos" class="btn">Referidos y Puntos</a>
+        <a href="/ingresarSaldo" class="btn">Ingresar Saldo</a>
     </div>
 </main>
 </body>

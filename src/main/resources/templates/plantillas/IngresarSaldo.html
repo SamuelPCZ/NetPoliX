@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar Saldo</title>
+  <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+  <link rel="stylesheet" href="/Styles.css">
+</head>
+<body>
+<header>
+  <div class="logo">
+    <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+  </div>
+  <div class="menu">
+    <a href="/logout" class="btn">Cerrar sesión</a>
+  </div>
+</header>
+
+<main>
+  <h1>Ingresar Saldo</h1>
+  <form th:action="@{/ingresarSaldo}" method="post">
+    <div class="input-group">
+      <label for="monto">Monto a ingresar:</label>
+      <input type="number" id="monto" name="monto" required>
+    </div>
+    <button type="submit" class="btn">Ingresar</button>
+  </form>
+
+  <div class="button-container">
+    <a href="/usuarioPrincipal" class="btn">Página Principal</a>
+    <a href="/consultarSaldo" class="btn">Consultar Saldo</a>
+    <a href="/referidosPuntos" class="btn">Referidos y Puntos</a>
+  </div>
+</main>
+</body>
+</html>

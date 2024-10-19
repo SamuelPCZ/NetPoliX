@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referidos y Puntos</title>
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/Styles.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+    </div>
+    <div class="menu">
+        <a href="/logout" class="btn">Cerrar sesión</a>
+    </div>
+</header>
+
+<main>
+    <h1>Referidos y Puntos</h1>
+    <p>Este es tu ID: <span th:text="${usuarioId}"></span>. Con este podrás referir a otras personas a la aplicación. Por cada persona que refieras, se te ingresará un saldo de $5000 a tu cuenta.</p>
+    <p>Tus puntos actuales: <span th:text="${usuarioPuntos}"></span></p>
+    <p>Por cada acción dentro de la app, se ingresará cierta cantidad de puntos que posteriormente se podrán redimir en alquileres o compras gratuitas.</p>
+
+    <h2>Cómo funciona el sistema de puntos</h2>
+    <ul>
+        <li>Por cada usuario referido que se registre con tu ID, recibirás 100 puntos.</li>
+        <li>Por cada compra que realices, recibirás 10 puntos por cada $100 gastados.</li>
+        <li>Por cada reseña que dejes en un video, recibirás 5 puntos.</li>
+        <li>Por cada video que califiques, recibirás 2 puntos.</li>
+    </ul>
+    <p>Los puntos acumulados pueden ser utilizados para obtener descuentos en futuras compras o para acceder a contenido exclusivo.</p>
+</main>
+</body>
+</html>
