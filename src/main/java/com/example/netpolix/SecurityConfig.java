@@ -14,22 +14,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
 public class SecurityConfig {
 
-    @Bean
+   @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/IniciarSesion", "/Registrarse", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css").permitAll()
+                        .requestMatchers("/", "/home", "/IniciarSesion", "/Registrarse", "/Admin", "/AgregarTemporada", "/CrearSerie", "/SubirVideo", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css", "/StylesVideo.css").permitAll()
                         .requestMatchers("/usuarioPrincipal","referidosPuntos", "/consultarSaldo", "/ingresarSaldo").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -46,6 +43,18 @@ public class SecurityConfig {
                         .permitAll()
                 );
         return http.build();
+
+        /**
+         * http
+        .csrf(csrf -> csrf.disable())  // Deshabilita CSRF para simplificar pruebas
+        .authorizeHttpRequests(auth -> auth
+            .anyRequest().permitAll()   // Permite todas las solicitudes sin autenticación
+        )
+        .formLogin().disable()          // Deshabilita el formulario de inicio de sesión
+        .logout().disable();            // Deshabilita el logout para simplificar
+
+        return http.build();
+         */
     }
 
     @Bean

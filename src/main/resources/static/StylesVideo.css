@@ -1,0 +1,25 @@
+.rating {
+    display: flex;
+    direction: rtl;
+    /* Cambio de dirección a derecha a izquierda */
+    justify-content: left;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.rating input:checked~label {
+    color: gold;
+}
+
+.rating label:hover,
+.rating label:hover~label {
+    color: gold;
+}

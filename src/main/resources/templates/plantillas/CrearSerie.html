@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Serie</title>
+</head>
+<body>
+    <form action="/CrearSerie" method="post">
+        <ul>
+            <li>
+                <input type="text" name="nombreSerie" id="nombreSerie" placeholder="Nombre de la serie" required>
+            </li>
+            <li>
+                <button type="submit">Crear Serie</button>
+            </li>
+        </ul>
+
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+        <div th:if="${tareaFinalizada}" style="color: green;">
+            <p th:text="${tareaFinalizada}"></p>
+        </div>
+    </form>
+    
+</body>
+</html>
