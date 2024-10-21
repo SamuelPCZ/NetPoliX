@@ -1,5 +1,6 @@
 package com.example.netpolix.Controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -20,5 +21,6 @@ public class BrowseHomePage {
     public String Registrarse(){
         return "plantillas/Registrarse";
     }
+    
 
 }

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubirVideo</title>
+    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <link rel="stylesheet" href="/StylesVideo.css">
+    <script th:src="@{/EnviarString.js}" defer></script>
+</head>
+
+<body>
+    <form action="/SubirVideo" method="post" enctype="multipart/form-data">
+        <ul>
+            <li>
+                <input type="text" name="titulo" placeholder="Título" required>
+            </li>
+            <li>
+                <label for="añoProduccion">Año de Producción</label>
+                <input type="date" id="añoProduccion" name="añoProduccion" required>
+            </li>
+            <li>
+                <input type="date" name="FechaRegistro" placeholder="Fecha de Registro" th:value="${fechaRegistro}"
+                    required readonly>
+            </li>
+            <li>
+                <input type="text" name="duracion" placeholder="Duración en minutos" required>
+            </li>
+            <li>
+                <label for="categorias">Categorías</label>
+                <select id="categorias" name="Categorias" multiple required>
+                    <option value="Terror">Terror</option>
+                    <option value="Accion">Acción</option>
+                    <option value="Comedia">Comedia</option>
+                    <option value="Misterio">Misterio</option>
+                    <option value="Suspenso">Suspenso</option>
+                    <option value="Ciencia Ficción">Ciencia Ficción</option>
+                    <option value="Historia">Historia</option>
+                    <option value="Aventura">Aventura</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasía">Fantasía</option>
+                    <option value="Documental">Documental</option>
+                    <option value="Animación">Animación</option>
+                </select>
+
+                <input type="hidden" id="categoriasString" name="categorias">
+            </li>
+            <li>
+                <input type="text" name="Lenguaje" placeholder="Idioma Original" required>
+            </li>
+            <li>
+                <div>
+
+                    <input type="text" id="directorInput" placeholder="Agregar director">
+                    <button type="button" id="addDirector" onclick="agregarDirector()">Agregar Director</button>
+                    <ul id="directoresList"></ul>
+
+
+                    <input type="text" id="actorInput" placeholder="Agregar actor">
+                    <button type="button" id="addActor" onclick="agregarActor()">Agregar Actor</button>
+                    <ul id="actoresList"></ul>
+
+
+                    <input type="text" id="productorInput" placeholder="Agregar productor">
+                    <button type="button" id="addProductor" onclick="agregarProductor()">Agregar Productor</button>
+                    <ul id="productoresList"></ul>
+
+                    <input type="hidden" id="directoresString" name="directoresString">
+                    <input type="hidden" id="actoresString" name="actoresString">
+                    <input type="hidden" id="productoresString" name="productoresString">
+
+            </li>
+            <li>
+                <label for="clasificacion">Clasificación</label>
+                <select id="clasificacion" name="clasificacion" required>
+                    <option value="">Selecciona una clasificación</option>
+                    <option value="G">G (General)</option>
+                    <option value="PG">PG (Guía para Padres)</option>
+                    <option value="PG-13">PG-13 (Prohibido para Menores de 13)</option>
+                    <option value="R">R (Restringido)</option>
+                    <option value="NC-17">NC-17 (Nadie Menor de 17 Años)</option>
+                    <option value="Unrated">Sin Clasificación</option>
+                </select>
+
+            </li>
+            <li>
+                <input type="text" name="seriesId" placeholder="ID Serie" required>
+            </li>
+            <li>
+                <input type="text" name="temporadaId" placeholder="ID Temporada" required>
+            </li>
+            <li>
+                <div class="rating">
+                    <input type="radio" id="estrella5" name="calificacion" value="5" />
+                    <label for="estrella5">★</label>
+                    <input type="radio" id="estrella4" name="calificacion" value="4" />
+                    <label for="estrella4">★</label>
+                    <input type="radio" id="estrella3" name="calificacion" value="3" />
+                    <label for="estrella3">★</label>
+                    <input type="radio" id="estrella2" name="calificacion" value="2" />
+                    <label for="estrella2">★</label>
+                    <input type="radio" id="estrella1" name="calificacion" value="1" />
+                    <label for="estrella1">★</label>
+                </div>
+            </li>
+            <li>
+                <button type="submit" class="btnOk">Subir</button>
+            </li>
+        </ul>
+
+        <!-- Mensaje de error -->
+        <div th:if="${errorMessage}" style="color: red;">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <!-- Mensaje de éxito -->
+        <div th:if="${tareaFinalizada}" style="color: green;">
+            <p th:text="${tareaFinalizada}"></p>
+        </div>
+    </form>
+
+</body>
+
+</html>

@@ -1,22 +1,32 @@
 package com.example.netpolix.Services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.netpolix.Repository.SerieRepository;
+import com.example.netpolix.Repository.TemporadaRepository;
+import com.example.netpolix.Repository.VideoRepository;
 
-import com.example.netpolix.model.Video;
+
 
 @Service
 public class VideoLog {
 
+	@Autowired
+	private TemporadaRepository tempRepository;
+
+	@Autowired
+    private SerieRepository serieRepository;
+
+	@Autowired 
+	private VideoRepository videoRepository;
+
     //Metodo para validar que el título del video no tenga caracteres especiales innecesarios.
-    boolean ValidarTitulo(String Titulo) {
+    public boolean ValidarTitulo(String Titulo) {
 		String invalidCharacters = "/|=}{*&%--";
 		for (char c : Titulo.toCharArray()) {
 			if (invalidCharacters.indexOf(c) != -1) {
@@ -27,15 +37,20 @@ public class VideoLog {
 	}
 	
     //La fecha de producción no puede ser hoy
-	boolean ValidarAñoProduccion(LocalDate año) {
+	public boolean ValidarAñoProduccion(LocalDate año) {
+		if(año == null){
+			return false;
+		}
 		return año.isBefore(LocalDate.now());
 	}
 	
     //la duración del video no puede ser 0 ni mayor a cuatro horas, ademas, un try catch por si el usuario
     //ingresa un valor muy alto para evitar errores de procesamiento
-	boolean ValidarDuracionVideo(Duration duracion) {
+	public boolean ValidarDuracionVideo(String duracion) {
 		try {
-			if(!duracion.isZero() && duracion.toMinutes() < 240) { //Que no sea 0 y no dure más de 4 horas
+			long minutos = Long.parseLong(duracion); 
+            Duration duration = Duration.ofMinutes(minutos);
+			if(!duration.isZero() && duration.toMinutes() < 240) { //Que no sea 0 y no dure más de 4 horas
 				return true;
 			} else {
 				return false;
@@ -45,58 +60,24 @@ public class VideoLog {
 		}
 	}
 
-    //pendiente por que debo conectar la base de datos, verificar que no se repitan debido a que el ISAN es unico
-    void ISANUnico(long ISAN) {
-		
-	}
+	public boolean PersonasInvolucradas(String persona){
+		ArrayList<String> personas = new ArrayList<>();
+		String[] personaArray = persona.split(",");
+		Collections.addAll(personas, personaArray);
 
-    boolean CategoriasValidas(String [] categoriasVideo) {
-		try {
-			return categoriasVideo.length==0? false: true;
-		}catch(NullPointerException e) {
-			return false;
-		}
-		
-	}
-
-    //Metodo para convertir Imagen a bytes, luego guardarla en la base de datos
-    public byte[] convertirImagenABytes(String rutaImagen) throws FileNotFoundException {
-        File file = new File(rutaImagen);
-        FileInputStream fis = new FileInputStream(file);
-        byte[] bytesArray = new byte[(int) file.length()];
-        try {
-            fis.read(bytesArray);
-            fis.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return bytesArray;
-    }
-
-	public boolean PersonasInvolucradas(ArrayList<String> personas){
 		return (personas.size() <=0)? false: true; //Tiene que haber minimo una persona tanto como director,
 		//actor o productor
 	}
 
-	//Metodo para confirmar que una serie existe, sino, no se podra agregar a esta el video, necesaria la base
-	//de datos
-	/*public boolean ConfirmarSerie(){
-
-	}*/
-
-	public void AgregarVideoASerie(Video video){
-
+    public boolean ConfirmarSerie(int serieId) {
+        if (!serieRepository.existsById(serieId)) {
+			return false;
+        }
+		return true;
 	}
 
-	//Metodo que nos dirá cuantas temporadas tiene una serie, para seleccionar la temporada y agregar el video
-	void TemporadasSerie(){
-
-	}
-
-	//primero verifica el numero del ultimo capitulo agregado y le sumara 20 para seleccionar el # del capitulo
-	//si el administrador lo desea, puede poner manualmente el numero del capitulo
-	void NumeroCapitulo(){
+	public boolean ConfirmarTemporada(int idTemporada){
+		return tempRepository.existsById(idTemporada);
 
 	}
 
