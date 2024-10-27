@@ -21,19 +21,30 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class SecurityConfig {
 
-   @Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/IniciarSesion", "/Registrarse", "/Admin", "/AgregarTemporada", "/CrearSerie", "/SubirVideo", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css", "/StylesVideo.css").permitAll()
-                        .requestMatchers("/usuarioPrincipal","referidosPuntos", "/consultarSaldo", "/ingresarSaldo").authenticated()
+                        .requestMatchers("/", "/home", "/IniciarSesion", "/Registrarse", "/static/**", "/Imagenes/**", "/Styles.css", "/StylesInicioSesion.css", "/StylesRegistro.css", "/StylesVideo.css").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/InicioSesion")
                         .loginProcessingUrl("/perform_login")
-                        .defaultSuccessUrl("/usuarioPrincipal", true)
+                        .successHandler((request, response, authentication) -> {
+                            String role = authentication.getAuthorities().stream()
+                                    .map(grantedAuthority -> grantedAuthority.getAuthority())
+                                    .filter(authority -> authority.equals("ROLE_ADMIN") || authority.equals("ROLE_USER"))
+                                    .findFirst()
+                                    .orElse("ROLE_USER");
+
+                            if ("ROLE_ADMIN".equals(role)) {
+                                response.sendRedirect("/Admin");
+                            } else {
+                                response.sendRedirect("/usuarioPrincipal");
+                            }
+                        })
                         .failureUrl("/InicioSesion?error=true")
                         .permitAll()
                 )
@@ -43,18 +54,6 @@ public class SecurityConfig {
                         .permitAll()
                 );
         return http.build();
-
-        /**
-         * http
-        .csrf(csrf -> csrf.disable())  // Deshabilita CSRF para simplificar pruebas
-        .authorizeHttpRequests(auth -> auth
-            .anyRequest().permitAll()   // Permite todas las solicitudes sin autenticación
-        )
-        .formLogin().disable()          // Deshabilita el formulario de inicio de sesión
-        .logout().disable();            // Deshabilita el logout para simplificar
-
-        return http.build();
-         */
     }
 
     @Bean

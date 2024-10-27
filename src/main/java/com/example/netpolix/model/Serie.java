@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Series")
+@Table(name = "series")
 @Data 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +26,7 @@ public class Serie {
     public String nombre;
 
     @Column(name = "numero_temporadas")
-    private short numeroTemporadas = 1;
+    public short numeroTemporadas;
     
     
 }

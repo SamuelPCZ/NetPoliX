@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form action="/SubirVideo" method="post" enctype="multipart/form-data">
+    <form th:action="@{/SubirVideo}" method="post" enctype="multipart/form-data">
         <ul>
             <li>
                 <input type="text" name="titulo" placeholder="Título" required>
@@ -19,6 +19,9 @@
             <li>
                 <label for="añoProduccion">Año de Producción</label>
                 <input type="date" id="añoProduccion" name="añoProduccion" required>
+            </li>
+            <li>
+                <input type = "number" name = "precio" placeholder = "Precio" required>
             </li>
             <li>
                 <input type="date" name="FechaRegistro" placeholder="Fecha de Registro" th:value="${fechaRegistro}"
@@ -85,10 +88,7 @@
 
             </li>
             <li>
-                <input type="text" name="seriesId" placeholder="ID Serie" required>
-            </li>
-            <li>
-                <input type="text" name="temporadaId" placeholder="ID Temporada" required>
+                <input type="text" name="temporadaId" placeholder="ID Temporada">
             </li>
             <li>
                 <div class="rating">

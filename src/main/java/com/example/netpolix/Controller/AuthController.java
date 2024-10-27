@@ -5,6 +5,7 @@ import com.example.netpolix.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/Registrarse")
+    @Transactional
     public String registerUser(@RequestParam String email, @RequestParam String contraseña, @RequestParam String nombreUsuario, @RequestParam(required = false) Long referidoPor, Model model) {
         // Verificar si el usuario ya existe
         if (userRepository.findByEmail(email) != null) {
@@ -34,7 +36,7 @@ public class AuthController {
         usuario.setEmail(email);
         usuario.setContraseña(passwordEncoder.encode(contraseña));
         usuario.setNombreUsuario(nombreUsuario);
-        usuario.setRol("USER");
+        usuario.setRol("USER"); // Asignar rol USER por defecto
         usuario.setFechaRegistro(LocalDateTime.now());
         usuario.setSaldo(0.0);
         usuario.setPuntos(0);

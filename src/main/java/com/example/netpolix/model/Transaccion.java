@@ -10,23 +10,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "temporadas")
+@Table(name = "transacciones")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Temporada {
+
+public class Transaccion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int idTemporada;
+    @Column(name = "id_transaccion")
+    private Integer idTransaccion;
 
-    @Column(name = "id_serie")
-    public int idSerie; //llave foranea
+    @Column(name = "id_usuario")
+    private Long idUsuario;
 
-    @Column(name = "numero_temporada")
-    public int NumeroTemporada;
+    @Column(name = "total")
+    private Double total;
 
-    @Column(name = "nombre_serie")
-    public String nombreSerie; // New column
+    @Column(name = "fecha_transaccion")
+    private LocalDateTime fechaTransaccion = LocalDateTime.now();
+
+    @Column(name = "id_promocion")
+    private Integer idPromocion;
 }

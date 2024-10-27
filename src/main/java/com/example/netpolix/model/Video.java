@@ -1,6 +1,5 @@
 package com.example.netpolix.model;
 
-
 import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,29 +12,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Videos")
+@Table(name = "videos")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Video {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "isan")
+    private int isan;
 
     @Column(name = "titulo")
     private String titulo;
 
-    @Column(name = "año_produccion")
+    @Column(name = "año_producción")
     private LocalDate añoProduccion;
+
+    @Column(name = "precio")
+    private double precio;
 
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro = LocalDate.now();
 
     @Column(name = "duración")
     private String duracionVideo;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "isan")
-    private int isan;
 
     @Column(name = "Categorias")
     private String categorias;
@@ -44,10 +45,10 @@ public class Video {
     private String idiomaOriginal;
 
     @Column(name = "directores")
-    private String directores; 
+    private String directores;
 
     @Column(name = "actores")
-    private String actores; 
+    private String actores;
 
     @Column(name = "productores")
     private String productores;
@@ -55,15 +56,9 @@ public class Video {
     @Column(name = "clasificación")
     private String clasificacion;
 
-    @Column(name = "id_serie")
-    private int idSerie;
-
     @Column(name = "id_temporada")
-    private byte idTemporada;
+    private Integer idTemporada; // Change to Integer to allow null values
 
     @Column(name = "calificacion")
-    private byte calificacion;
-
-    
-
+    private int calificacion;
 }

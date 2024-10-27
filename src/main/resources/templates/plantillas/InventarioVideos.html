@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventario de Videos</title>
+</head>
+<body>
+<h1>Inventario de Videos</h1>
+<div th:if="${inventarioVideos.isEmpty()}">
+  <p>No hay videos en el inventario.</p>
+</div>
+<div th:if="${!inventarioVideos.isEmpty()}">
+  <ul>
+    <li th:each="inventarioDTO : ${inventarioVideos}">
+      <p><strong>Nombre del Video:</strong> <span th:text="${inventarioDTO.nombreVideo}">Nombre del Video</span></p>
+      <p><strong>Cantidad:</strong> <span th:text="${inventarioDTO.inventario.cantidad}">Cantidad</span></p>
+      <hr/>
+    </li>
+  </ul>
+</div>
+<a href="/usuarioPrincipal">Volver a la página principal</a>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Resultados de Búsqueda</title>
+</head>
+<body>
+<h1>Resultados de Búsqueda</h1>
+<div th:if="${videos.isEmpty()}">
+  <p>No se encontraron videos.</p>
+</div>
+<div th:if="${!videos.isEmpty()}">
+  <ul>
+    <li th:each="video : ${videos}">
+      <p><strong>Título:</strong> <span th:text="${video.titulo}">Título</span></p>
+      <p><strong>Año de Producción:</strong> <span th:text="${video.añoProduccion}">Año</span></p>
+      <p><strong>Precio:</strong> <span th:text="${video.precio}">Precio</span></p>
+      <p><strong>Calificación:</strong> <span th:text="${video.calificacion}">Calificación</span></p>
+      <form th:action="@{/agregarAlCarrito}" method="post">
+        <input type="hidden" name="isan" th:value="${video.isan}" />
+        <button type="submit">Agregar al Carrito</button>
+      </form>
+      <hr/>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
