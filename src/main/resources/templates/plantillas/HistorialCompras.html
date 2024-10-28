@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Historial de Compras</title>
 </head>
+
 <body>
-<h1>Historial de Compras</h1>
-<div th:if="${historialCompras.isEmpty()}">
-    <p>No hay compras en el historial.</p>
-</div>
-<div th:if="${!historialCompras.isEmpty()}">
-    <ul>
-        <li th:each="historialDTO : ${historialCompras}">
-            <p><strong>Nombre del Video:</strong> <span th:text="${historialDTO.nombreVideo}">Nombre del Video</span></p>
-            <p><strong>Precio:</strong> <span th:text="${historialDTO.precio}">Precio</span></p>
-            <p><strong>Cantidad:</strong> <span th:text="${historialDTO.historial.cantidad}">Cantidad</span></p>
-            <p><strong>Fecha de Transacción:</strong> <span th:text="${historialDTO.historial.fechaTransaccion}">Fecha de Transacción</span></p>
-            <p><strong>Tipo de Transacción:</strong> <span th:text="${historialDTO.historial.tipoTransaccion}">Tipo de Transacción</span></p>
-            <hr/>
-        </li>
-    </ul>
-</div>
-<a href="/usuarioPrincipal">Volver a la página principal</a>
+    <h1>Historial de Compras</h1>
+    <div th:if="${historialCompras.isEmpty()}">
+        <p>No hay compras en el historial.</p>
+    </div>
+    <div th:if="${!historialCompras.isEmpty()}">
+        <ul>
+            <li th:each="historialDTO : ${historialCompras}">
+                <p><strong>Nombre del Video:</strong> <span th:text="${historialDTO.nombreVideo}">Nombre del
+                        Video</span></p>
+                <p><strong>Precio:</strong> <span th:text="${historialDTO.precio}">Precio</span></p>
+                <p><strong>Cantidad:</strong> <span th:text="${historialDTO.historial.cantidad}">Cantidad</span></p>
+                <p><strong>Fecha de Transacción:</strong> <span
+                        th:text="${historialDTO.historial.fechaTransaccion}">Fecha de Transacción</span></p>
+                <p><strong>Tipo de Transacción:</strong> <span th:text="${historialDTO.historial.tipoTransaccion}">Tipo
+                        de Transacción</span></p>
+                <!-- Formulario para calificación de estrellas -->
+                <form th:action="@{/calificarVideo}" method="post">
+                    <input type="hidden" name="isan" th:value="${historialDTO.isan}" />
+                    <input type="hidden" name="query" th:value="${historialDTO.nombreVideo}" />
+                    <div class="rating">
+                        <strong>Calificar</strong>
+                        <input type="radio" id="estrella5" name="calificacion" value="5" />
+                        <label for="estrella5">5</label>
+                        <input type="radio" id="estrella4" name="calificacion" value="4" />
+                        <label for="estrella4">4</label>
+                        <input type="radio" id="estrella3" name="calificacion" value="3" />
+                        <label for="estrella3">3</label>
+                        <input type="radio" id="estrella2" name="calificacion" value="2" />
+                        <label for="estrella2">2</label>
+                        <input type="radio" id="estrella1" name="calificacion" value="1" />
+                        <label for="estrella1">1</label>
+                    </div>
+                    <div th:if="${Mensaje}">
+                        <p th:text="${Mensaje}"></p> <!-- Muestra el mensaje si está presente -->
+                    </div>
+                    <button type="submit">Enviar Calificación</button>
+                </form>
+                <hr />
+            </li>
+        </ul>
+    </div>
+    <a href="/usuarioPrincipal">Volver a la página principal</a>
 </body>
+
 </html>

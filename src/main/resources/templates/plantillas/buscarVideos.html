@@ -6,10 +6,44 @@
     <title>Busqueda de videos</title>
 </head>
 <body>
-  <h1>Buscar Videos</h1>
-  <form action="/buscarVideos" method="get">
-    <input type="text" name="query" placeholder="Buscar por título">
-    <button type="submit">Buscar</button>
+    <h1>Buscar Videos</h1>
+    <form th:action="@{/buscarVideos}" method="get">
+      <input type="text" name="query" placeholder="Buscar por título">
+      <button type="submit">Buscar</button>
+    </form>
+
+    <form th:action="@{/buscarVideosCategoria}" method="get">    
+        <label for="categorias">Categorías</label>
+        <select id="categorias" name="categorias" multiple required>
+            <option value="Terror">Terror</option>
+            <option value="Accion">Acción</option>
+            <option value="Comedia">Comedia</option>
+            <option value="Misterio">Misterio</option>
+            <option value="Suspenso">Suspenso</option>
+            <option value="Ciencia Ficción">Ciencia Ficción</option>
+            <option value="Historia">Historia</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasía">Fantasía</option>
+            <option value="Documental">Documental</option>
+            <option value="Animación">Animación</option>
+        </select>
+        
+        <button type="submit">Buscar</button>
+    </form>
+
+    <form th:action="@{/buscarVideosIdioma}" method="get">    
+      <label for="idiomas">Idiomas</label>
+      <select id="idiomas" name="idiomas" multiple required>
+          <option value="Español">Español</option>
+          <option value="Ingles">Inglés</option>
+          <option value="Francés">Francés</option>
+          <option value="Alemán">Alemán</option>
+          <option value="Italiano">Italiano</option>
+          <option value="Chino">Chino</option>
+          <option value="Japonés">Japonés</option>
+      </select>
+      <button type="submit">Buscar</button>
   </form>
 </body>
 </html>

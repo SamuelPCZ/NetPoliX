@@ -88,7 +88,8 @@ public class UsuarioController {
             Video video = videoRepository.findById(historial.getIsan()).orElse(null);
             String nombreVideo = video != null ? video.getTitulo() : "Unknown";
             Double precio = video != null ? video.getPrecio() : 0.0;
-            return new HistorialDTO(historial, nombreVideo, precio);
+            int isan = video.getIsan();
+            return new HistorialDTO(historial, nombreVideo, precio, isan);
         }).collect(Collectors.toList());
 
         model.addAttribute("historialCompras", historialDTOs);
@@ -115,11 +116,13 @@ public class UsuarioController {
         private Historial historial;
         private String nombreVideo;
         private Double precio;
+        private int isan;
 
-        public HistorialDTO(Historial historial, String nombreVideo, Double precio) {
+        public HistorialDTO(Historial historial, String nombreVideo, Double precio, int isan) {
             this.historial = historial;
             this.nombreVideo = nombreVideo;
             this.precio = precio;
+            this.isan = isan;
         }
 
         public Historial getHistorial() {
@@ -132,6 +135,10 @@ public class UsuarioController {
 
         public Double getPrecio() {
             return precio;
+        }
+
+        public int getIsan(){
+            return isan;
         }
     }
 
