@@ -27,7 +27,7 @@ public class VideoLog {
 
     //Metodo para validar que el título del video no tenga caracteres especiales innecesarios.
     public boolean ValidarTitulo(String Titulo) {
-		String invalidCharacters = "/|=}{*&%--";
+		String invalidCharacters = "$@/|=}{*&%--";
 		for (char c : Titulo.toCharArray()) {
 			if (invalidCharacters.indexOf(c) != -1) {
 				return false;
@@ -50,7 +50,7 @@ public class VideoLog {
 		try {
 			long minutos = Long.parseLong(duracion); 
             Duration duration = Duration.ofMinutes(minutos);
-			if(!duration.isZero() && duration.toMinutes() < 240) { //Que no sea 0 y no dure más de 4 horas
+			if(duration.toMinutes() > 0 && duration.toMinutes() < 240) { //Que no sea 0 y no dure más de 4 horas
 				return true;
 			} else {
 				return false;
@@ -61,12 +61,20 @@ public class VideoLog {
 	}
 
 	public boolean PersonasInvolucradas(String persona){
+
+		if(persona.equals("") || persona.equals(" ")) return false;
+		//Tiene que haber minimo una persona tanto como director,
+		//actor o productor
 		ArrayList<String> personas = new ArrayList<>();
 		String[] personaArray = persona.split(",");
 		Collections.addAll(personas, personaArray);
 
-		return (personas.size() <=0)? false: true; //Tiene que haber minimo una persona tanto como director,
-		//actor o productor
+		boolean esValido = true;
+
+		for(int i = 0; i< personas.size();i++){
+			if(!ValidarTitulo(personas.get(i))) return !esValido;
+		}
+		return esValido;
 	}
 
     public boolean ConfirmarSerie(int serieId) {
