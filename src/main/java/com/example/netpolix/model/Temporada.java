@@ -19,14 +19,15 @@ public class Temporada {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int idTemporada;
+    @Column(name = "id_temporada")
+    private int idTemporada;
 
     @Column(name = "id_serie")
-    public int idSerie; //llave foranea
+    private int idSerie; //llave foranea
 
     @Column(name = "numero_temporada")
-    public int NumeroTemporada;
+    private int numeroTemporada;
 
     @Column(name = "nombre_serie")
-    public String nombreSerie; // New column
+    private String nombreSerie; // New column
 }

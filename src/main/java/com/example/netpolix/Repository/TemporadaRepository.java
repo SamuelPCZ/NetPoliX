@@ -7,5 +7,4 @@ import com.example.netpolix.model.Temporada;
 @Repository
 public interface TemporadaRepository extends JpaRepository<Temporada, Integer>{
 
-
 }

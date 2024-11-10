@@ -9,8 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import java.text.DecimalFormat;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,9 @@ public class CarritoController {
     @Autowired
     private InventarioRepository inventarioRepository;
 
+    @Autowired
+    private PromocionRepository promocionRepository;
+
     @GetMapping("/carrito")
     @Transactional
     public String verCarrito(Principal principal, Model model) {
@@ -45,17 +49,30 @@ public class CarritoController {
         List<CarritoItemDTO> carritoItemDTOs = carritoItems.stream().map(item -> {
             Video video = videoRepository.findById(item.getIsan()).orElse(null);
             String nombreVideo = video != null ? video.getTitulo() : "Unknown";
-            Double precio = video != null ? video.getPrecio() : 0.0;
-            return new CarritoItemDTO(item, precio, nombreVideo);
+            double precio = video != null ? video.getPrecio() : 0.0;
+            return new CarritoItemDTO(item, nombreVideo, precio);
         }).collect(Collectors.toList());
 
-        // Calculate total value considering the quantity of each item
-        double totalValue = carritoItemDTOs.stream()
-                .mapToDouble(itemDTO -> itemDTO.getPrecio() * itemDTO.getItem().getCantidad())
+        // Calculate subtotal
+        double subtotal = carritoItemDTOs.stream()
+                .mapToDouble(item -> item.getPrecio() * item.getItem().getCantidad())
                 .sum();
 
+        // Apply promotions and calculate total value
+        LocalDateTime now = LocalDateTime.now();
+        List<Promocion> promociones = promocionRepository.findByFechaInicioBeforeAndFechaFinAfter(now, now);
+        double totalValue = subtotal;
+        for (Promocion promocion : promociones) {
+            totalValue -= totalValue * (promocion.getDescuento() / 100);
+        }
+
+        // Format the total value
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        String formattedTotalValue = decimalFormat.format(totalValue);
+
         model.addAttribute("carritoItems", carritoItemDTOs);
-        model.addAttribute("totalValue", totalValue);
+        model.addAttribute("subtotal", subtotal);
+        model.addAttribute("totalValue", formattedTotalValue);
         return "plantillas/carrito";
     }
 
@@ -98,7 +115,7 @@ public class CarritoController {
             Video video = videoRepository.findById(item.getIsan()).orElse(null);
             double precio = video != null ? video.getPrecio() : 0.0;
             String nombreVideo = video != null ? video.getTitulo() : "Unknown";
-            return new CarritoItemDTO(item, precio, nombreVideo);
+            return new CarritoItemDTO(item, nombreVideo, precio);
         }).collect(Collectors.toList());
 
         // Calculate total value considering the quantity of each item
@@ -154,28 +171,27 @@ public class CarritoController {
         return "redirect:/carrito";
     }
 
-    // DTO class to hold CarritoItems and price
     public static class CarritoItemDTO {
         private CarritoItems item;
-        private Double precio;
         private String nombreVideo;
+        private double precio;
 
-        public CarritoItemDTO(CarritoItems item, Double precio, String nombreVideo) {
+        public CarritoItemDTO(CarritoItems item, String nombreVideo, double precio) {
             this.item = item;
-            this.precio = precio;
             this.nombreVideo = nombreVideo;
+            this.precio = precio;
         }
 
         public CarritoItems getItem() {
             return item;
         }
 
-        public Double getPrecio() {
-            return precio;
-        }
-
         public String getNombreVideo() {
             return nombreVideo;
+        }
+
+        public double getPrecio() {
+            return precio;
         }
     }
 }

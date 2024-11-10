@@ -23,7 +23,8 @@
       <hr/>
     </li>
   </ul>
-  <p><strong>Valor Total:</strong> <span th:text="${totalValue}">Valor Total</span></p>
+  <p><strong>Subtotal:</strong> <span th:text="${subtotal}">Subtotal</span></p>
+  <p><strong>Valor Total (después del descuento):</strong> <span th:text="${totalValue}">Valor Total</span></p>
   <form th:action="@{/realizarCompra}" method="post">
     <button type="submit">Realizar Compra</button>
   </form>

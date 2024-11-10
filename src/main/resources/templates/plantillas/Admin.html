@@ -1,14 +1,30 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
-    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/Styles.css">
 </head>
 <body>
-    <a th:href="@{/CrearSerie}">Crear Serie</a>
-    <a th:href="@{/agregarTemporada}">Agregar Temporada</a>
-    <a th:href="@{/SubirVideo}">Subir Video</a>
+<header>
+    <div class="logo">
+        <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+    </div>
+    <div class="menu">
+        <a href="/logout" class="btn">Cerrar sesión</a>
+    </div>
+</header>
+
+<main>
+    <h1>Panel de Administración</h1>
+    <div class="button-container">
+        <a th:href="@{/CrearSerie}">Crear Serie</a>
+        <a th:href="@{/agregarTemporada}">Agregar Temporada</a>
+        <a th:href="@{/SubirVideo}">Subir Video</a>
+        <a th:href="@{/promociones}">Crear Promocion</a>
+        <!-- Add other admin buttons here -->
+    </div>
+</main>
 </body>
 </html>

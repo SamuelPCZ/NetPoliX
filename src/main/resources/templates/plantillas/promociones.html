@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promociones</title>
+</head>
+<body>
+<h1>Promociones Activas</h1>
+<ul>
+  <li th:each="promocion : ${promociones}">
+    <p th:text="${promocion.descripcion}"></p>
+    <p>Descuento: <span th:text="${promocion.descuento}"></span>%</p>
+    <p>Fecha de Inicio: <span th:text="${promocion.fechaInicio}"></span></p>
+    <p>Fecha de Fin: <span th:text="${promocion.fechaFin}"></span></p>
+    <form th:action="@{/eliminarPromocion}" method="post">
+      <input type="hidden" name="idPromocion" th:value="${promocion.id}" />
+      <button type="submit">Eliminar Promoción</button>
+    </form>
+  </li>
+</ul>
+
+<div th:if="${promociones.isEmpty()}">
+  <h2>Crear Nueva Promoción</h2>
+  <form th:action="@{/crearPromocion}" method="post">
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="descripcion" required><br>
+
+    <label for="descuento">Descuento (%):</label>
+    <input type="number" id="descuento" name="descuento" step="0.01" required><br>
+
+    <label for="fechaInicio">Fecha de Inicio:</label>
+    <input type="datetime-local" id="fechaInicio" name="fechaInicio" required><br>
+
+    <label for="fechaFin">Fecha de Fin:</label>
+    <input type="datetime-local" id="fechaFin" name="fechaFin" required><br>
+
+    <button type="submit">Crear Promoción</button>
+  </form>
+</div>
+</body>
+</html>

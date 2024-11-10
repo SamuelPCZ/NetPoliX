@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import com.example.netpolix.Repository.VideoRepository;
+import com.example.netpolix.Services.NotificacionesService;
 import com.example.netpolix.Services.VideoLog;
 import com.example.netpolix.model.Video;
 
@@ -22,6 +22,9 @@ public class VideoController {
 
     @Autowired
     private VideoRepository videoRepository;
+
+    @Autowired
+    private NotificacionesService notificacionesService;
 
     @PostMapping("/SubirVideo")
     @Transactional
@@ -77,8 +80,10 @@ public class VideoController {
 
         videoRepository.save(video);
 
+        // Send notification to all users
+        notificacionesService.sendNotificationToAllUsers("Nuevo video subido: " + titulo, "video");
+
         model.addAttribute("tareaFinalizada", "El video se ha subido correctamente.");
         return "plantillas/SubirVideo";
     }
-
 }

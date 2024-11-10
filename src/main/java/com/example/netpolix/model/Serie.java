@@ -12,21 +12,18 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "series")
-@Data 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Serie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_serie")
-    public int idSerie;
+    private int idSerie;
 
     @Column(name = "nombre_serie")
-    public String nombre;
+    private String nombre;
 
     @Column(name = "numero_temporadas")
-    public short numeroTemporadas;
-    
-    
+    private short numeroTemporadas;
 }

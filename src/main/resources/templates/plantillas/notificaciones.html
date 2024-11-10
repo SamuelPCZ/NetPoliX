@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificaciones</title>
+</head>
+<body>
+<h1>Notificaciones</h1>
+<ul>
+  <li th:each="notificacion : ${notificaciones}">
+    <p th:text="${notificacion.mensaje}"></p>
+    <p>tipo de notificacion: <span th:text="${notificacion.tipo}"></span></p>
+    <p>fecha de envio: <span th:text="${notificacion.fechaEnvio}"></span></p>
+  </li>
+</ul>
+</body>
+</html>

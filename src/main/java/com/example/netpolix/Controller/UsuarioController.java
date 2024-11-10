@@ -37,6 +37,7 @@ public class UsuarioController {
     @Autowired
     private InventarioRepository inventarioRepository;
 
+    @Transactional
     @GetMapping("/usuarioPrincipal")
     public String showUsuarioPrincipal(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
@@ -46,6 +47,7 @@ public class UsuarioController {
         return "plantillas/UsuarioPrincipal";
     }
 
+    @Transactional
     @GetMapping("/referidosPuntos")
     public String showReferidosPuntos(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
@@ -54,6 +56,7 @@ public class UsuarioController {
         return "plantillas/ReferidosPuntos";
     }
 
+    @Transactional
     @GetMapping("/consultarSaldo")
     public String showConsultarSaldo(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
@@ -61,6 +64,7 @@ public class UsuarioController {
         return "plantillas/ConsultarSaldo";
     }
 
+    @Transactional
     @GetMapping("/ingresarSaldo")
     public String showIngresarSaldo(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
@@ -96,6 +100,7 @@ public class UsuarioController {
         return "plantillas/HistorialCompras";
     }
 
+    @Transactional
     @GetMapping("/inventarioVideos")
     public String showInventarioVideos(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
