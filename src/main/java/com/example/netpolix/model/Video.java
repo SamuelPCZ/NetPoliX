@@ -60,5 +60,5 @@ public class Video {
     private Integer idTemporada; // Change to Integer to allow null values
 
     @Column(name = "calificacion")
-    private int calificacion;
+    private double calificacion;
 }

@@ -15,8 +15,8 @@ public class CalificarVideo {
     public void calificarVideo(int isan, int calificacion){
         Video video = videoRepository.findByIsan(isan);
         if(video != null){
-            int promedio = (video.getCalificacion() + calificacion )/ 2;
-            video.setCalificacion(promedio);
+            double nuevaCalificacion = (video.getCalificacion() + calificacion) / 2.0;
+            video.setCalificacion(nuevaCalificacion);
             videoRepository.save(video);
         }
     }
