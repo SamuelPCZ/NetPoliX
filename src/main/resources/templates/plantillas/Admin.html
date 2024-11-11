@@ -19,11 +19,14 @@
 <main>
     <h1>Panel de Administración</h1>
     <div class="button-container">
+        <!-- Agregar rutas para las opciones de administración -->
         <a th:href="@{/CrearSerie}">Crear Serie</a>
         <a th:href="@{/agregarTemporada}">Agregar Temporada</a>
         <a th:href="@{/SubirVideo}">Subir Video</a>
+        <a th:href="@{/crearColeccion}">Crear Colección</a>
+        <a th:href="@{/agregarVideoAColeccion}">Agregar Video a Colección</a>  <!-- Ruta para agregar videos a la colección -->
         <a th:href="@{/promociones}">Crear Promocion</a>
-        <!-- Add other admin buttons here -->
+        <!-- Otras rutas de administración -->
     </div>
 </main>
 </body>

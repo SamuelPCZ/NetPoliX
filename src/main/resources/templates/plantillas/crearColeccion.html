@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Colección</title>
+</head>
+<body>
+    <h1>Crear Nueva Colección</h1>
+    <form action="/crearColeccion" method="post">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" required>
+        <button type="submit">Crear Colección</button>
+        <div th:if="${tareaFinalizada}" style="color: green;">
+            <p th:text="${tareaFinalizada}"></p>
+        </div>
+    </form>
+</body>
+</html>

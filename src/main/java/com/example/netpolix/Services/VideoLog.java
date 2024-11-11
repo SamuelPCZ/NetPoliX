@@ -25,6 +25,7 @@ public class VideoLog {
 	@Autowired 
 	private VideoRepository videoRepository;
 
+
     //Metodo para validar que el título del video no tenga caracteres especiales innecesarios.
     public boolean ValidarTitulo(String Titulo) {
 		String invalidCharacters = "$@/|=}{*&%--";
@@ -78,10 +79,7 @@ public class VideoLog {
 	}
 
     public boolean ConfirmarSerie(int serieId) {
-        if (!serieRepository.existsById(serieId)) {
-			return false;
-        }
-		return true;
+		return serieRepository.existsById(serieId);
 	}
 
 	public boolean ConfirmarTemporada(int idTemporada){

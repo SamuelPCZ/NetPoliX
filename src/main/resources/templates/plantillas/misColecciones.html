@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colecciones</title>
+
+    <h1>Colecciones y Videos</h1>
+
+    <div th:each="entry : ${coleccionesMap}">
+        <!-- Título de la colección -->
+        <h2 th:text="${entry.key}" style="font-weight: bold;"></h2>
+        
+        <!-- Lista de videos asociados -->
+        <ul>
+            <li th:each="isanVideo : ${entry.value}">
+                <span th:text="'Nombre del Video: ' + ${isanVideo.titulo}"></span>
+                <!-- Mostrar el ISAN del video -->
+                <span th:text="'ISAN: ' + ${isanVideo.isan}"></span><br/>
+                
+                <!-- Formulario para agregar al carrito -->
+                <form th:action="@{/agregarAlCarrito}" method="post">
+                    <!-- Suponiendo que el valor de 'isan' sea el identificador del video -->
+                    <input type="hidden" name="isan" th:value="${isanVideo.isan}" />
+                    <button type="submit">Agregar al Carrito</button>
+                </form>
+            </li>
+        </ul>
+    
+        <hr /> <!-- Línea de separación entre colecciones -->
+    </div>
+
+    <a href="/usuarioPrincipal">Volver a la página principal</a>
+</head>
+
+</html>

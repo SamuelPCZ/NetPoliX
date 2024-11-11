@@ -116,6 +116,12 @@ public class UsuarioController {
         return "plantillas/InventarioVideos";
     }
 
+    @GetMapping("/politicasAlquiler")
+    public String PoliticasAlquiler() {
+        return "plantillas/politicasAlquiler";
+    }
+    
+
     // DTO class to hold Historial, video name, and price
     public static class HistorialDTO {
         private Historial historial;

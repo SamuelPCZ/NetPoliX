@@ -101,7 +101,7 @@ public class CarritoController {
 
         carritoItemsRepository.save(item);
         model.addAttribute("mensaje", "Video agregado al carrito.");
-        return "redirect:/buscarVideos";
+        return "redirect:/carrito";
     }
 
     @PostMapping("/realizarCompra")

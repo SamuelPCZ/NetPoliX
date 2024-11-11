@@ -11,18 +11,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "colecciones")
+@Table(name = "coleccion_video")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Coleccion {
+public class VideoColeccion {
+
+    @Column(name = "coleccion_isan")
+    private int isanColeccion;
+    
+    @Column(name = "video_isan")
+    private int isanVideo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_colección")
-    int isan;
-
-    @Column(name = "titulo")
-    String titulo;
-
+    @Column(name = "id")
+    private int id;
 }

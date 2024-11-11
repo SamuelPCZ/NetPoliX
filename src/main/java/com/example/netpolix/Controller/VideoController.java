@@ -2,16 +2,20 @@ package com.example.netpolix.Controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.example.netpolix.Services.NotificacionesService;
 
 import com.example.netpolix.Repository.VideoRepository;
-import com.example.netpolix.Services.NotificacionesService;
 import com.example.netpolix.Services.VideoLog;
 import com.example.netpolix.model.Video;
 
@@ -22,7 +26,6 @@ public class VideoController {
 
     @Autowired
     private VideoRepository videoRepository;
-
     @Autowired
     private NotificacionesService notificacionesService;
 
@@ -77,7 +80,6 @@ public class VideoController {
         video.setClasificacion(clasificacion);
         video.setIdTemporada(idTemporada != null ? idTemporada : 0); // Handle null value
         video.setCalificacion(calificacion);
-
         videoRepository.save(video);
 
         // Send notification to all users
@@ -86,4 +88,21 @@ public class VideoController {
         model.addAttribute("tareaFinalizada", "El video se ha subido correctamente.");
         return "plantillas/SubirVideo";
     }
+
+    @GetMapping("/validarIsan")
+    public ResponseEntity<Map<String, Object>> validarIsan(@RequestParam("isan") int isan) {
+        // Verificar si existe un video con el ISAN ingresado
+        Video video = videoRepository.findByIsan(isan);
+
+        Map<String, Object> response = new HashMap<>();
+        if (video != null) {  // Si el video existe
+            response.put("exists", true);
+            response.put("nombre", video.getTitulo());  // Obtener el nombre del video
+        } else {  // Si el video no existe
+            response.put("exists", false);
+        }
+
+        return ResponseEntity.ok(response);  // Devolver la respuesta
+    }
+
 }
