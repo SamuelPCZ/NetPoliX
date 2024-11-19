@@ -55,7 +55,7 @@ public class CarritoController {
 
         // Calculate subtotal
         double subtotal = carritoItemDTOs.stream()
-                .mapToDouble(item -> item.getPrecio() * item.getItem().getCantidad())
+                .mapToDouble(CarritoItemDTO::getPrecio)
                 .sum();
 
         // Apply promotions and calculate total value
@@ -83,23 +83,27 @@ public class CarritoController {
         return "redirect:/carrito";
     }
 
+    // Eliminar referencias a cantidad en métodos como agregarAlCarrito y realizarCompra
     @PostMapping("/agregarAlCarrito")
     @Transactional
     public String agregarAlCarrito(@RequestParam("isan") int isan, Principal principal, Model model) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
-        CarritoItems item = carritoItemsRepository.findByIdUsuarioAndIsan(usuario.getId().intValue(), isan);
+        boolean videoComprado = historialRepository.existsByIdUsuarioAndIsan(usuario.getId(), isan);
 
-        if (item != null) {
-            item.setCantidad(item.getCantidad() + 1); // Update the quantity
-        } else {
+        if (videoComprado) {
+            model.addAttribute("mensajeError", "Este video ya ha sido comprado.");
+            return "redirect:/carrito";
+        }
+
+        CarritoItems item = carritoItemsRepository.findByIdUsuarioAndIsan(usuario.getId().intValue(), isan);
+        if (item == null) {
             item = new CarritoItems();
             item.setIdUsuario(usuario.getId().intValue());
             item.setIsan(isan);
-            item.setCantidad(1); // Set initial quantity
-            item.setTipo("video"); // Assuming the type is video
+            item.setTipo("video");
+            carritoItemsRepository.save(item);
         }
 
-        carritoItemsRepository.save(item);
         model.addAttribute("mensaje", "Video agregado al carrito.");
         return "redirect:/carrito";
     }
@@ -118,9 +122,9 @@ public class CarritoController {
             return new CarritoItemDTO(item, nombreVideo, precio);
         }).collect(Collectors.toList());
 
-        // Calculate total value considering the quantity of each item
+        // Calculate total value
         double totalValue = carritoItemDTOs.stream()
-                .mapToDouble(itemDTO -> itemDTO.getPrecio() * itemDTO.getItem().getCantidad())
+                .mapToDouble(CarritoItemDTO::getPrecio)
                 .sum();
 
         if (usuario.getSaldo() < totalValue) {
@@ -148,20 +152,16 @@ public class CarritoController {
             historial.setIsan(itemDTO.getItem().getIsan());
             historial.setIdTransaccion(transaccion.getIdTransaccion());
             historial.setTipoTransaccion("compra");
-            historial.setCantidad(itemDTO.getItem().getCantidad()); // Set the quantity
             historialRepository.save(historial);
 
             // Update inventory
             Inventario inventario = inventarioRepository.findByIdUsuarioAndIsan(usuario.getId(), itemDTO.getItem().getIsan());
-            if (inventario != null) {
-                inventario.setCantidad(inventario.getCantidad() + itemDTO.getItem().getCantidad());
-            } else {
+            if (inventario == null) {
                 inventario = new Inventario();
                 inventario.setIdUsuario(usuario.getId());
                 inventario.setIsan(itemDTO.getItem().getIsan());
-                inventario.setCantidad(itemDTO.getItem().getCantidad());
+                inventarioRepository.save(inventario);
             }
-            inventarioRepository.save(inventario);
         }
 
         // Clear the cart

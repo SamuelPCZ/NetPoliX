@@ -38,7 +38,4 @@ public class Historial {
 
     @Column(name = "fecha_transacción")
     private LocalDateTime fechaTransaccion = LocalDateTime.now();
-
-    @Column(name = "cantidad")
-    private Integer cantidad;
 }

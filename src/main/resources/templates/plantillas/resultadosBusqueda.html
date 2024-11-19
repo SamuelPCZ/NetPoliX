@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <title>Resultados de Búsqueda</title>
 </head>
-
 <body>
-  <h1>Resultados de Búsqueda</h1>
-  <div th:if="${errorMessage}" style="color: red;">
-    <p th:text="${errorMessage}"></p>
-  </div>
-  <div th:if="${videos == null}">
-    <p>No se encontraron videos.</p>
-  </div>
-  <div th:if="${!(videos == null)}">
-    <ul>
-      <li th:each="video : ${videos}">
-        <p><strong>Título:</strong> <span th:text="${video.titulo}">Título</span></p>
-        <p><strong>Año de Producción:</strong> <span th:text="${video.añoProduccion}">Año</span></p>
-        <p><strong>Precio:</strong> <span th:text="${video.precio}">Precio</span></p>
-        <p><strong>Calificación:</strong> <span th:text="${video.calificacion}">Calificación</span></p>
+<h1>Resultados de Búsqueda</h1>
+<div th:if="${errorMessage}" style="color: red;">
+  <p th:text="${errorMessage}"></p>
+</div>
+<div th:if="${videos == null}">
+  <p>No se encontraron videos.</p>
+</div>
+<div th:if="${!(videos == null)}">
+  <ul>
+    <li th:each="video : ${videos}">
+      <p><strong>Título:</strong> <span th:text="${video.titulo}">Título</span></p>
+      <p><strong>Año de Producción:</strong> <span th:text="${video.añoProduccion}">Año</span></p>
+      <p><strong>Precio:</strong> <span th:text="${video.precio}">Precio</span></p>
+      <p><strong>Calificación:</strong> <span th:text="${video.calificacionPromedio}">Calificación</span></p>
 
-        <!-- Formulario para agregar al carrito -->
-        <form th:action="@{/agregarAlCarrito}" method="post">
-          <input type="hidden" name="isan" th:value="${video.isan}" />
-          <button type="submit">Agregar al Carrito</button>
-        </form>
+      <form th:action="@{/agregarAlCarrito}" method="post" th:if="${!video.enCarrito && !video.comprado}">
+        <input type="hidden" name="isan" th:value="${video.isan}" />
+        <button type="submit">Agregar al Carrito</button>
+      </form>
+      <p th:if="${video.enCarrito}">Este video ya está en el carrito.</p>
+      <p th:if="${video.comprado}">Este video ya ha sido comprado.</p>
 
-        <hr />
-        </form>
-
-        
-
-      </li>
-    </ul>
-  </div>
+      <hr />
+    </li>
+  </ul>
+</div>
 </body>
-
 </html>

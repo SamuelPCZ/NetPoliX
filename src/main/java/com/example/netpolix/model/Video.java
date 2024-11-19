@@ -1,12 +1,8 @@
 package com.example.netpolix.model;
 
 import java.time.LocalDate;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -57,8 +53,17 @@ public class Video {
     private String clasificacion;
 
     @Column(name = "id_temporada")
-    private Integer idTemporada; // Change to Integer to allow null values
+    private Integer idTemporada;
 
-    @Column(name = "calificacion")
-    private double calificacion;
+    @Column(name = "id_serie")
+    private Integer serieId;
+
+    @Transient
+    private String calificacionPromedio;
+
+    @Transient
+    private boolean enCarrito;
+
+    @Transient
+    private boolean comprado;
 }

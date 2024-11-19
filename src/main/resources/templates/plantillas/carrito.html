@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
   <title>Carrito de Compras</title>
 </head>
-
 <body>
-  <h1>Carrito de Compras</h1>
-  <div th:if="${carritoItems.isEmpty()}">
-    <p>No hay ítems en el carrito.</p>
-  </div>
-  <div th:if="${!carritoItems.isEmpty()}">
-    <ul>
-      <li th:each="itemDTO : ${carritoItems}">
-        <p><strong>ISAN:</strong> <span th:text="${itemDTO.item.isan}">ISAN</span></p>
-        <p><strong>Nombre del Video:</strong> <span th:text="${itemDTO.nombreVideo}">Nombre del Video</span></p>
-        <p><strong>Tipo:</strong> <span th:text="${itemDTO.item.tipo}">Tipo</span></p>
-        <p><strong>Cantidad:</strong> <span th:text="${itemDTO.item.cantidad}">Cantidad</span></p>
-        <p><strong>Precio:</strong> <span th:text="${itemDTO.precio}">Precio</span></p>
-        <form th:action="@{/eliminarDelCarrito}" method="post">
-          <input type="hidden" name="idItem" th:value="${itemDTO.item.idItem}" />
-          <button type="submit">Eliminar</button>
-        </form>
-        <hr />
-      </li>
-    </ul>
-    <p><strong>Subtotal:</strong> <span th:text="${subtotal}">Subtotal</span></p>
-    <p><strong>Valor Total (después del descuento):</strong> <span th:text="${totalValue}">Valor Total</span></p>
-    <form th:action="@{/realizarCompra}" method="post">
-      <button type="submit">Realizar Compra</button>
-      <p>Al dar click, aceptas nuestras <a href="/politicasAlquiler" target="_blank">políticas de alquiler</a>.</p>
-    </form>
-    <a href="/usuarioPrincipal">Volver a la página principal</a>
-  </div>
+<h1>Carrito de Compras</h1>
+<div th:if="${carritoItems.isEmpty()}">
+  <p>No hay ítems en el carrito.</p>
+</div>
+<div th:if="${!carritoItems.isEmpty()}">
+  <ul>
+    <li th:each="itemDTO : ${carritoItems}">
+      <p><strong>ISAN:</strong> <span th:text="${itemDTO.item.isan}">ISAN</span></p>
+      <p><strong>Nombre del Video:</strong> <span th:text="${itemDTO.nombreVideo}">Nombre del Video</span></p>
+      <p><strong>Tipo:</strong> <span th:text="${itemDTO.item.tipo}">Tipo</span></p>
+      <p><strong>Precio:</strong> <span th:text="${itemDTO.precio}">Precio</span></p>
+      <form th:action="@{/eliminarDelCarrito}" method="post">
+        <input type="hidden" name="idItem" th:value="${itemDTO.item.idItem}" />
+        <button type="submit">Eliminar</button>
+      </form>
+      <hr />
+    </li>
+  </ul>
+  <p><strong>Subtotal:</strong> <span th:text="${subtotal}">Subtotal</span></p>
+  <p><strong>Valor Total (después del descuento):</strong> <span th:text="${totalValue}">Valor Total</span></p>
+  <form th:action="@{/realizarCompra}" method="post">
+    <button type="submit">Realizar Compra</button>
+    <p>Al dar click, aceptas nuestras <a href="/politicasAlquiler" target="_blank">políticas de alquiler</a>.</p>
+  </form>
+  <a href="/usuarioPrincipal">Volver a la página principal</a>
+</div>
+<div th:if="${mensajeError}" style="color: red;">
+  <p th:text="${mensajeError}"></p>
+</div>
 </body>
-
 </html>

@@ -28,7 +28,7 @@ public class CalificarVideoTest {
         video.setCalificacion(4);
         when(videoRepository.findByIsan(123)).thenReturn(video);
 
-        calificarVideo.calificarVideo(123, 5);
+        calificarVideo.calificarVideo(123, 1,  5);
         assertEquals(4.5, video.getCalificacion());
         verify(videoRepository, times(1)).save(video);
     }
@@ -37,7 +37,7 @@ public class CalificarVideoTest {
     public void testCalificarVideoNotFound() {
         when(videoRepository.findByIsan(123)).thenReturn(null);
 
-        calificarVideo.calificarVideo(123, 5);
+        calificarVideo.calificarVideo(123, 1,  5);
         verify(videoRepository, never()).save(any(Video.class));
     }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Calificaciones</title>
+</head>
+<body>
+<h1>Mis Calificaciones</h1>
+<div th:if="${calificaciones.isEmpty()}">
+    <p>No has realizado ninguna calificación.</p>
+</div>
+<div th:if="${!calificaciones.isEmpty()}">
+    <ul>
+        <li th:each="calificacion : ${calificaciones}">
+            <p><strong>ISAN del Video:</strong> <span th:text="${calificacion.isan}">ISAN</span></p>
+            <p><strong>Calificación:</strong> <span th:text="${calificacion.calificacion}">Calificación</span></p>
+            <p><strong>Fecha de Calificación:</strong> <span th:text="${calificacion.fechaCalificacion}">Fecha</span></p>
+            <hr />
+        </li>
+    </ul>
+</div>
+<a href="/usuarioPrincipal">Volver a la página principal</a>
+</body>
+</html>

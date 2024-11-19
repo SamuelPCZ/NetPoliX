@@ -29,11 +29,7 @@ public class CarritoItems {
     @Column(name = "tipo")
     private String tipo;
 
-    @Column(name = "cantidad")
-    private Integer cantidad;
-
     @Column(name = "fecha_agregado")
     private LocalDateTime fechaAgregado = LocalDateTime.now();
 
-    // Getters and Setters
 }

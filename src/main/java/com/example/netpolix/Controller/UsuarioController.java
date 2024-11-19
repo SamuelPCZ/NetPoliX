@@ -1,13 +1,7 @@
 package com.example.netpolix.Controller;
 
-import com.example.netpolix.Repository.HistorialRepository;
-import com.example.netpolix.Repository.InventarioRepository;
-import com.example.netpolix.model.Historial;
-import com.example.netpolix.model.Inventario;
-import com.example.netpolix.model.Usuario;
-import com.example.netpolix.Repository.UserRepository;
-import com.example.netpolix.Repository.VideoRepository;
-import com.example.netpolix.model.Video;
+import com.example.netpolix.model.*;
+import com.example.netpolix.Repository.*;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,9 @@ public class UsuarioController {
 
     @Autowired
     private InventarioRepository inventarioRepository;
+
+    @Autowired
+    private CalificacionesRepository calificacionesRepository;
 
     @Transactional
     @GetMapping("/usuarioPrincipal")
@@ -82,8 +79,8 @@ public class UsuarioController {
         return "redirect:/consultarSaldo";
     }
 
-    @GetMapping("/historialCompras")
     @Transactional
+    @GetMapping("/historialCompras")
     public String showHistorialCompras(Model model, Principal principal) {
         Usuario usuario = userRepository.findByEmail(principal.getName());
         List<Historial> historialCompras = historialRepository.findByIdUsuario(usuario.getId());
@@ -93,7 +90,9 @@ public class UsuarioController {
             String nombreVideo = video != null ? video.getTitulo() : "Unknown";
             Double precio = video != null ? video.getPrecio() : 0.0;
             int isan = video.getIsan();
-            return new HistorialDTO(historial, nombreVideo, precio, isan);
+            Long idUsuario = usuario.getId(); // Use Long
+            boolean yaCalificado = !calificacionesRepository.findByIsanAndIdUsuario(isan, idUsuario.intValue()).isEmpty();
+            return new HistorialDTO( nombreVideo, precio, historial, yaCalificado, isan, idUsuario.intValue());
         }).collect(Collectors.toList());
 
         model.addAttribute("historialCompras", historialDTOs);
@@ -116,42 +115,21 @@ public class UsuarioController {
         return "plantillas/InventarioVideos";
     }
 
+    @GetMapping("/misCalificaciones")
+    @Transactional
+    public String showMisCalificaciones(Model model, Principal principal) {
+        Usuario usuario = userRepository.findByEmail(principal.getName());
+        List<Calificaciones> calificaciones = calificacionesRepository.findByIdUsuario(usuario.getId().intValue());
+
+        model.addAttribute("calificaciones", calificaciones);
+        return "plantillas/misCalificaciones";
+    }
+
     @GetMapping("/politicasAlquiler")
     public String PoliticasAlquiler() {
         return "plantillas/politicasAlquiler";
     }
-    
 
-    // DTO class to hold Historial, video name, and price
-    public static class HistorialDTO {
-        private Historial historial;
-        private String nombreVideo;
-        private Double precio;
-        private int isan;
-
-        public HistorialDTO(Historial historial, String nombreVideo, Double precio, int isan) {
-            this.historial = historial;
-            this.nombreVideo = nombreVideo;
-            this.precio = precio;
-            this.isan = isan;
-        }
-
-        public Historial getHistorial() {
-            return historial;
-        }
-
-        public String getNombreVideo() {
-            return nombreVideo;
-        }
-
-        public Double getPrecio() {
-            return precio;
-        }
-
-        public int getIsan(){
-            return isan;
-        }
-    }
 
     public static class InventarioDTO {
         private Inventario inventario;

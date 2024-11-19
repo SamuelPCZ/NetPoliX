@@ -43,7 +43,7 @@ public class VideoController {
             @RequestParam("productoresString") String productoresString,
             @RequestParam("clasificacion") String clasificacion,
             @RequestParam(value = "temporadaId", required = false) Integer idTemporada,
-            @RequestParam("calificacion") int calificacion,
+            @RequestParam(value = "serieId", required = false) Integer serieId, // Add this parameter
             Model model) throws IOException {
 
         if (!video.ValidarTitulo(titulo)) {
@@ -78,8 +78,8 @@ public class VideoController {
         video.setActores(actoresString);
         video.setProductores(productoresString);
         video.setClasificacion(clasificacion);
-        video.setIdTemporada(idTemporada != null ? idTemporada : 0); // Handle null value
-        video.setCalificacion(calificacion);
+        video.setIdTemporada(idTemporada != null ? idTemporada : 0);
+        video.setSerieId(serieId); // Set the serieId
         videoRepository.save(video);
 
         // Send notification to all users

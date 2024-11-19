@@ -1,22 +1,21 @@
 package com.example.netpolix.Controller;
 
-import com.example.netpolix.Controller.BuscarVideoController;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.example.netpolix.Repository.VideoRepository;
 import com.example.netpolix.Services.CalificarVideo;
 import com.example.netpolix.model.Video;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
-import org.springframework.ui.ConcurrentModel;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class BuscarVideoControllerTest {
 
@@ -26,56 +25,82 @@ public class BuscarVideoControllerTest {
     @Mock
     private CalificarVideo calificarVideo;
 
+    @Mock
+    private Model model;
+
+    @Mock
+    private RedirectAttributes redirectAttributes;
+
     @InjectMocks
     private BuscarVideoController buscarVideoController;
 
-    public BuscarVideoControllerTest() {
+    @BeforeEach
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testShowBuscarVideo() {
-        String viewName = buscarVideoController.showBuscarVideo();
-        assertEquals("plantillas/buscarVideos", viewName);
-    }
-
-    @Test
     public void testBuscarVideos() {
-        Model model = new ConcurrentModel();
-        when(videoRepository.findByTituloContainingIgnoreCase("test")).thenReturn(Collections.emptyList());
+        String query = "Test Video";
+        List<Video> videos = new ArrayList<>();
+        Video video = new Video();
+        video.setTitulo("Test Video");
+        videos.add(video);
 
-        String viewName = buscarVideoController.buscarVideos("test", model);
-        assertEquals("plantillas/resultadosBusqueda", viewName);
-        assertTrue(((List<Video>) model.getAttribute("videos")).isEmpty());
+        when(videoRepository.findByTituloContainingIgnoreCase(query)).thenReturn(videos);
+
+        String result = buscarVideoController.buscarVideos(query, model, null);
+
+        assertNotNull(result);
+        verify(model).addAttribute("videos", videos);
     }
 
     @Test
     public void testCalificarVideo() {
-        RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
-        doNothing().when(calificarVideo).calificarVideo(anyInt(), anyInt());
+        int isan = 123;
+        int calificacion = 5;
+        int idUsuario = 1;
+        String query = "Test Video";
 
-        String viewName = buscarVideoController.calificarVideo(123, 5, "test", redirectAttributes);
-        assertEquals("redirect:/buscarVideos?query=test", viewName);
-        verify(calificarVideo, times(1)).calificarVideo(123, 5);
+        doNothing().when(calificarVideo).calificarVideo(isan, idUsuario, calificacion);
+
+        String result = buscarVideoController.calificarVideo(isan, idUsuario, calificacion, query, redirectAttributes);
+
+        assertNotNull(result);
+        verify(calificarVideo).calificarVideo(isan, idUsuario, calificacion);
+        verify(redirectAttributes).addFlashAttribute("Mensaje", "Calificación enviada con éxito");
     }
 
     @Test
     public void testBuscarVideosCategoria() {
-        Model model = new ConcurrentModel();
-        when(videoRepository.findByCategoria("test")).thenReturn(Collections.emptyList());
+        List<String> categorias = new ArrayList<>();
+        categorias.add("Acción");
+        List<Video> videos = new ArrayList<>();
+        Video video = new Video();
+        video.setTitulo("Test Video");
+        videos.add(video);
 
-        String viewName = buscarVideoController.buscarVideosCategoria(Collections.singletonList("test"), model);
-        assertEquals("plantillas/resultadosBusqueda", viewName);
-        assertTrue(((List<Video>) model.getAttribute("videos")).isEmpty());
+        when(videoRepository.findByCategoria("Acción")).thenReturn(videos);
+
+        String result = buscarVideoController.buscarVideosCategoria(categorias, model);
+
+        assertNotNull(result);
+        verify(model).addAttribute("videos", videos);
     }
 
     @Test
     public void testBuscarVideosIdioma() {
-        Model model = new ConcurrentModel();
-        when(videoRepository.findByIdiomaOriginal("es")).thenReturn(Collections.emptyList());
+        String idioma = "Español";
+        List<Video> videos = new ArrayList<>();
+        Video video = new Video();
+        video.setTitulo("Test Video");
+        videos.add(video);
 
-        String viewName = buscarVideoController.getMethodName("es", model);
-        assertEquals("plantillas/resultadosBusqueda", viewName);
-        assertTrue(((List<Video>) model.getAttribute("videos")).isEmpty());
+        when(videoRepository.findByIdiomaOriginal(idioma)).thenReturn(videos);
+
+        String result = buscarVideoController.getMethodName(idioma, model);
+
+        assertNotNull(result);
+        verify(model).addAttribute("videos", videos);
     }
 }

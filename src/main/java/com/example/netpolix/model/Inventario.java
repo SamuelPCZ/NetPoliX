@@ -21,7 +21,4 @@ public class Inventario {
 
     @Column(name = "isan")
     private Integer isan;
-
-    @Column(name = "cantidad")
-    private Integer cantidad;
 }

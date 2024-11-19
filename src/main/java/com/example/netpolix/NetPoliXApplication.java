@@ -15,6 +15,6 @@ public class NetPoliXApplication {
 
     @GetMapping("/")
     public String redirectToHome() {
-        return "plantillas/home"; // Return the name of the template without the .html extension
+        return "plantillas/home";
     }
 }

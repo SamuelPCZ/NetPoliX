@@ -1,8 +1,10 @@
 package com.example.netpolix.Controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import com.example.netpolix.Repository.CarritoItemsRepository;
+import com.example.netpolix.Repository.HistorialRepository;
+import com.example.netpolix.Repository.UserRepository;
+import com.example.netpolix.model.CarritoItems;
+import com.example.netpolix.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,13 @@ import com.example.netpolix.Repository.VideoRepository;
 import com.example.netpolix.Services.CalificarVideo;
 import com.example.netpolix.model.Video;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Controller
 public class BuscarVideoController {
 
@@ -23,7 +32,16 @@ public class BuscarVideoController {
     private VideoRepository videoRepository;
 
     @Autowired
-    private CalificarVideo video;
+    private CalificarVideo calificarVideo;
+
+    @Autowired
+    private CarritoItemsRepository carritoItemsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private HistorialRepository historialRepository;
 
     @GetMapping("/BuscarVideo")
     public String showBuscarVideo() {
@@ -32,13 +50,24 @@ public class BuscarVideoController {
 
     @GetMapping("/buscarVideos")
     @Transactional
-    public String buscarVideos(@RequestParam(value = "query", required = false) String query, Model model) {
+    public String buscarVideos(@RequestParam(value = "query", required = false) String query, Model model, Principal principal) {
         List<Video> videos = new ArrayList<>();
         if (query == null || query.isEmpty()) {
             model.addAttribute("errorMessage", "El parámetro de búsqueda es obligatorio.");
             return "plantillas/buscarVideos";
         }
         videos = videoRepository.findByTituloContainingIgnoreCase(query);
+        Usuario usuario = userRepository.findByEmail(principal.getName());
+        List<CarritoItems> carritoItems = carritoItemsRepository.findByIdUsuario(usuario.getId());
+        Set<Integer> isanEnCarrito = carritoItems.stream().map(CarritoItems::getIsan).collect(Collectors.toSet());
+
+        for (Video video : videos) {
+            String calificacionPromedio = calificarVideo.obtenerCalificacionPromedio(video.getIsan());
+            video.setCalificacionPromedio(calificacionPromedio);
+            video.setEnCarrito(isanEnCarrito.contains(video.getIsan()));
+            boolean videoComprado = historialRepository.existsByIdUsuarioAndIsan(usuario.getId(), video.getIsan());
+            video.setComprado(videoComprado); // Añadir esta línea
+        }
         model.addAttribute("videos", videos);
         return "plantillas/resultadosBusqueda";
     }
@@ -46,41 +75,41 @@ public class BuscarVideoController {
     @PostMapping("/calificarVideo")
     public String calificarVideo(
             @RequestParam("isan") int isan,
-            @RequestParam("calificacion") int calificacion,
+            @RequestParam("idUsuario") int idUsuario,
+            @RequestParam("calificacion") float calificacion,
             @RequestParam("query") String query,
             RedirectAttributes redirectAttributes) {
-        video.calificarVideo(isan, calificacion);
-        redirectAttributes.addFlashAttribute("Mensaje", "Calificación enviada con éxito");
+        try {
+            calificarVideo.calificarVideo(isan, idUsuario, calificacion);
+            redirectAttributes.addFlashAttribute("Mensaje", "Calificación enviada con éxito");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("Mensaje", e.getMessage());
+        }
         return "redirect:/buscarVideos?query=" + query;
-
     }
 
     @GetMapping("/buscarVideosCategoria")
     public String buscarVideosCategoria(@RequestParam(value = "categorias", required = false) List<String> categorias,
-            Model model) {
+                                        Model model) {
         List<Video> videos = new ArrayList<>();
         if (categorias == null || categorias.isEmpty()) {
             model.addAttribute("errorMessage", "Si vas a buscar por categorías, selecciona mínimo 1.");
-            return "plantillas/buscarVideos"; // Retorna a la página de búsqueda
+            return "plantillas/buscarVideos";
         }
 
-        // Buscar videos por cada categoría seleccionada
         for (String categoria : categorias) {
             List<Video> videosPorCategoria = videoRepository.findByCategoria(categoria);
-            videos.addAll(videosPorCategoria); // Agrega los videos encontrados
+            videos.addAll(videosPorCategoria);
         }
 
-        // Evitar duplicados si es necesario
         List<Video> uniqueVideos = new ArrayList<>(new HashSet<>(videos));
-
-        // Agregar los videos al modelo
         model.addAttribute("videos", uniqueVideos);
-        return "plantillas/resultadosBusqueda"; // Retorna a la página de resultados
+        return "plantillas/resultadosBusqueda";
     }
 
     @GetMapping("/buscarVideosIdioma")
     public String getMethodName(@RequestParam(value = "idiomas", required = false) String idioma,
-    Model model) {
+                                Model model) {
         List<Video> videos = new ArrayList<>();
         if(idioma.isEmpty()){
             model.addAttribute("errorMessage", "Si vas a buscar por idioma, selecciona al menos uno");
@@ -91,7 +120,4 @@ public class BuscarVideoController {
         model.addAttribute("videos", videos);
         return "plantillas/resultadosBusqueda";
     }
-    
-
-
 }

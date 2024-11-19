@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface HistorialRepository extends JpaRepository<Historial, Integer> {
     List<Historial> findByIdUsuario(Long idUsuario);
+    boolean existsByIdUsuarioAndIsan(Long idUsuario, Integer isan);
 }

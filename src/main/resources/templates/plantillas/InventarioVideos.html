@@ -13,7 +13,6 @@
   <ul>
     <li th:each="inventarioDTO : ${inventarioVideos}">
       <p><strong>Nombre del Video:</strong> <span th:text="${inventarioDTO.nombreVideo}">Nombre del Video</span></p>
-      <p><strong>Cantidad:</strong> <span th:text="${inventarioDTO.inventario.cantidad}">Cantidad</span></p>
       <hr/>
     </li>
   </ul>
