@@ -1,11 +1,16 @@
 package com.example.netpolix.Services;
 
+import com.example.netpolix.Repository.CalificacionesRepository;
 import com.example.netpolix.Repository.VideoRepository;
+import com.example.netpolix.model.Calificaciones;
 import com.example.netpolix.model.Video;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -15,29 +20,49 @@ public class CalificarVideoTest {
     @Mock
     private VideoRepository videoRepository;
 
+    @Mock
+    private CalificacionesRepository calificacionesRepository;
+
     @InjectMocks
     private CalificarVideo calificarVideo;
 
-    public CalificarVideoTest() {
+    @BeforeEach
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
     public void testCalificarVideo() {
         Video video = new Video();
-        video.setCalificacion(4);
         when(videoRepository.findByIsan(123)).thenReturn(video);
+        when(calificacionesRepository.findByIsanAndIdUsuario(123, 1)).thenReturn(Collections.emptyList());
 
-        calificarVideo.calificarVideo(123, 1,  5);
-        assertEquals(4.5, video.getCalificacion());
-        verify(videoRepository, times(1)).save(video);
+        calificarVideo.calificarVideo(123, 1, 5);
+
+        verify(calificacionesRepository, times(1)).save(any(Calificaciones.class));
     }
 
     @Test
     public void testCalificarVideoNotFound() {
         when(videoRepository.findByIsan(123)).thenReturn(null);
 
-        calificarVideo.calificarVideo(123, 1,  5);
-        verify(videoRepository, never()).save(any(Video.class));
+        calificarVideo.calificarVideo(123, 1, 5);
+
+        verify(calificacionesRepository, never()).save(any(Calificaciones.class));
+    }
+
+    @Test
+    public void testCalificarVideoAlreadyRated() {
+        Video video = new Video();
+        Calificaciones calificacionExistente = new Calificaciones();
+        when(videoRepository.findByIsan(123)).thenReturn(video);
+        when(calificacionesRepository.findByIsanAndIdUsuario(123, 1)).thenReturn(Collections.singletonList(calificacionExistente));
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            calificarVideo.calificarVideo(123, 1, 5);
+        });
+
+        assertEquals("El usuario ya ha calificado este video.", exception.getMessage());
+        verify(calificacionesRepository, never()).save(any(Calificaciones.class));
     }
 }
