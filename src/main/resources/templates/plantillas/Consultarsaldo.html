@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar Saldo</title>
-    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
-    <link rel="stylesheet" href="/Styles.css">
+    <title>NetPolix</title>
+    <link rel="icon" href="/Imagenes/logo.png" type="image/png">
+    <link rel="stylesheet" href="/ConsultaSaldo.css">
 </head>
+
 <body>
 <header>
     <div class="logo">
@@ -18,18 +20,43 @@
 </header>
 
 <main>
-    <h1>Consultar Saldo</h1>
-    <p>Nombre de usuario: <span th:text="${usuario.nombreUsuario}"></span></p>
-    <p>Email: <span th:text="${usuario.email}"></span></p>
-    <p>Saldo actual: <span th:text="${usuario.saldo}"></span></p>
-    <p>Puntos actuales: <span th:text="${usuario.puntos}"></span></p>
+    <div class="consultaSaldoContainer">
+        <h1>Consultar Saldo</h1>
+        <div class="info">
+            <p><strong>Nombre de usuario:</strong> <span th:text="${usuario.nombreUsuario}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${usuario.email}"></span></p>
+            <p><strong>Saldo actual:</strong> <span th:text="${usuario.saldo}"></span></p>
+            <p><strong>Puntos actuales:</strong> <span th:text="${usuario.puntos}"></span></p>
+        </div>
 
-    <div class="button-container">
-        <a href="/usuarioPrincipal" class="btn">Página Principal</a>
-        <a href="/referidosPuntos" class="btn">Referidos y Puntos</a>
-        <a href="/ingresarSaldo" class="btn">Ingresar Saldo</a>
+        <div class="button-container">
+            <a href="/referidosPuntos" class="btn">Referidos y Puntos</a>
+            <a href="/ingresarSaldo" class="btn">Ingresar Saldo</a>
+        </div>
+        <a href="/usuarioPrincipal">Volver a la página principal</a>
     </div>
-    <a href="/usuarioPrincipal">Volver a la página principal</a>
 </main>
+
+<div class="image-container" id="image-container">
+    <img src="/Imagenes/Rapidos_Furiosos_6.webp" alt="Imagen 1">
+    <img src="/Imagenes/scale.webp" alt="Imagen 2">
+    <img src="/Imagenes/interestelar.jpg" alt="Imagen 3">
+</div>
+
+<script>
+    let currentImageIndex = 0;
+    const images = document.querySelectorAll('.image-container img');
+    const totalImages = images.length;
+
+    function changeImage() {
+        images[currentImageIndex].classList.remove('active');
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        images[currentImageIndex].classList.add('active');
+    }
+
+    setInterval(changeImage, 10000);
+
+    images[currentImageIndex].classList.add('active');
+</script>
 </body>
 </html>

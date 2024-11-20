@@ -1,0 +1,178 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo2.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    height: 62px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #373637;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+header .logo img {
+    width: 150px;
+}
+
+header .menu a {
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #373637;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+header .menu a:hover {
+    background-color: #414042;
+}
+
+form {
+    background-color: rgba(55, 54, 55, 0.8);
+    border-radius: 15px;
+    padding: 40px;
+    width: 400px;
+    text-align: left;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+form ul {
+    list-style: none;
+}
+
+form li {
+    margin-bottom: 20px;
+}
+
+form label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+form input::placeholder {
+    color: #888;
+}
+
+button[type="submit"] {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1d3047;
+}
+
+
+button[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button[type="button"]:hover {
+    background-color: #388e3c;
+}
+
+
+ul {
+    list-style-type: none;
+    margin-top: 10px;
+    padding: 0;
+}
+
+ul li {
+    margin: 5px 0;
+    color: #ddd;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+
+div {
+    margin-top: 20px;
+    text-align: center;
+}
+
+div p {
+    font-weight: bold;
+}
+
+
+select[multiple] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    button[type="submit"],
+    button[type="button"] {
+        padding: 10px;
+    }
+
+    select[multiple] {
+        height: 150px;
+    }
+}

@@ -5,20 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colecciones</title>
+    <link rel="stylesheet" href="../StylesMisColecciones.css">
 
     <h1>Colecciones y Videos</h1>
 
     <div th:each="entry : ${coleccionesMap}">
         <!-- Título de la colección -->
         <h2 th:text="${entry.key}" style="font-weight: bold;"></h2>
-        
+
         <!-- Lista de videos asociados -->
         <ul>
             <li th:each="isanVideo : ${entry.value}">
                 <span th:text="'Nombre del Video: ' + ${isanVideo.titulo}"></span>
                 <!-- Mostrar el ISAN del video -->
                 <span th:text="'ISAN: ' + ${isanVideo.isan}"></span><br/>
-                
+
                 <!-- Formulario para agregar al carrito -->
                 <form th:action="@{/agregarAlCarrito}" method="post">
                     <!-- Suponiendo que el valor de 'isan' sea el identificador del video -->
@@ -27,7 +28,7 @@
                 </form>
             </li>
         </ul>
-    
+
         <hr /> <!-- Línea de separación entre colecciones -->
     </div>
 

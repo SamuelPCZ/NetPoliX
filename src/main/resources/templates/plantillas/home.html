@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetPoliX</title>
-    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
-    <link rel="stylesheet" href="/Styles.css">
+    <title>NetPolix</title>
+    <link rel="icon" href="../Imagenes/logo.png" type="image/png">
+    <link rel="stylesheet" href="../Styles.css">
 </head>
+
 <body>
 <header>
     <div class="logo">
         <a th:href="@{/home}" class="logo">
-            <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+            <img src="../Imagenes/Logo.png" alt="NetPoliX Logo">
         </a>
     </div>
     <div class="menu">
@@ -19,8 +21,48 @@
         <a th:href="@{/Registrarse}" class="btn">Registrarse</a>
     </div>
 </header>
-<main>
-    <h1>¡Compra o alquila las mejores películas y series del mercado en: <br><span>NetPoliX</span>!</h1>
-</main>
+
+<div class="image-container" id="image-container">
+    <img src="../Imagenes/Rapidos_Furiosos_6.webp" alt="Imagen 1">
+    <img src="../Imagenes/scale.webp" alt="Imagen 2">
+    <img src="../Imagenes/interestelar.jpg" alt="Imagen 3">
+</div>
+
+<div class="blue-box">
+    <div class="subtitulo" id="subtitulo">Subtítulo 1</div>
+    <div class="texto" id="texto">Texto relacionado con la imagen 1.</div>
+</div>
+
+<div class="text-popular">Popular en</div>
+<div class="text-netpolix">NetPolix</div>
+
+<script>
+    let currentImageIndex = 0;
+    const images = document.querySelectorAll('.image-container img');
+    const totalImages = images.length;
+
+    const textos = [
+        { subtitulo: "Rápidos y Furiosos 6", texto: "Desde que el robo de Dom y Brian en Río los dejó a ellos y a su equipo con mucho dinero, ellos se dispersan por todo el mundo; sin embargo, ellos tienen que vivir como fugitivos, incapaces de regresar con sus familias." },
+        { subtitulo: "Avengers End Game", texto: "Después de los eventos devastadores de Avengers Infinity War, el universo está en ruinas debido a las acciones de Thanos, el Titán Loco. Con la ayuda de los aliados que quedaron, los Vengadores deberán reunirse una vez más para intentar detenerlo." },
+        { subtitulo: "Interestellar", texto: "Un grupo de científicos y exploradores, encabezados por Cooper, se embarcan en un viaje espacial para encontrar un lugar con las condiciones necesarias para reemplazar a la Tierra y comenzar una nueva vida allí." }
+    ];
+
+    function changeImage() {
+        images[currentImageIndex].classList.remove('active');
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        images[currentImageIndex].classList.add('active');
+
+        const { subtitulo, texto } = textos[currentImageIndex];
+        document.getElementById('subtitulo').textContent = subtitulo;
+        document.getElementById('texto').textContent = texto;
+    }
+
+    setInterval(changeImage, 10000);
+
+    images[currentImageIndex].classList.add('active');
+    document.getElementById('subtitulo').textContent = textos[currentImageIndex].subtitulo;
+    document.getElementById('texto').textContent = textos[currentImageIndex].texto;
+</script>
 </body>
+
 </html>

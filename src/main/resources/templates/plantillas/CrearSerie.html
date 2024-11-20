@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Serie</title>
+    <link rel="stylesheet" href="../StylesCrearSerie.css">
 </head>
 <body>
-    <form action="/CrearSerie" method="post">
-        <ul>
-            <li>
-                <input type="text" name="nombreSerie" id="nombreSerie" placeholder="Nombre de la serie" required>
-            </li>
-            <li>
-                <input type="number" name = "temporadas" id="temporadas" placeholder="Número de temporadas" required>
-            </li>
-            <li>
-                <button type="submit">Crear Serie</button>
-            </li>
-        </ul>
-        <div th:if="${tareaFinalizada}" style="color: green;">
-            <p th:text="${tareaFinalizada}"></p>
-        </div>
-    </form>
-    
+<form action="/CrearSerie" method="post">
+    <ul>
+        <li>
+            <input type="text" name="nombreSerie" id="nombreSerie" placeholder="Nombre de la serie" required>
+        </li>
+        <li>
+            <input type="number" name = "temporadas" id="temporadas" placeholder="Número de temporadas" required>
+        </li>
+        <li>
+            <button type="submit">Crear Serie</button>
+        </li>
+    </ul>
+    <div th:if="${tareaFinalizada}" style="color: green;">
+        <p th:text="${tareaFinalizada}"></p>
+    </div>
+</form>
+
 </body>
 </html>

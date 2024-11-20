@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-top: 100px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+ul li {
+    background-color: rgba(55, 54, 55, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+ul li p {
+    margin-bottom: 10px;
+}
+
+ul li form {
+    margin-top: 10px;
+}
+
+ul li form button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+ul li form button:hover {
+    background-color: #e62e2e;
+}
+
+div {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+div h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: rgba(55, 54, 55, 0.8);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: left;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+form label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="datetime-local"],
+form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+form input::placeholder {
+    color: #888;
+}
+
+button[type="submit"] {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1d3047;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="datetime-local"]:focus,
+form input[type="date"]:focus {
+    outline: none;
+    border: 1px solid #4CAF50;
+}
+
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    ul {
+        padding: 0 10px;
+    }
+
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    button[type="submit"] {
+        padding: 10px;
+    }
+
+    ul li {
+        padding: 15px;
+    }
+}

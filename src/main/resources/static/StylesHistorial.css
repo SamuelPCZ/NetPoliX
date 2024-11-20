@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #fff;
+}
+
+h1 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+li {
+    background-color: rgba(55, 54, 55, 0.8);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+li p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+li p strong {
+    font-weight: bold;
+}
+
+.rating {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.rating input {
+    margin-right: 5px;
+}
+
+.rating label {
+    color: #f2d600;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+form .btn {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+form .btn:hover {
+    background-color: #1d3047;
+}
+
+form .btnLogout {
+    background-color: #f44336;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+form .btnLogout:hover {
+    background-color: #d32f2f;
+}
+
+hr {
+    border: 1px solid #ffffff;
+    margin: 20px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #344e69;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #1d3047;
+}
+
+div.mensaje {
+    margin-top: 10px;
+    color: #f44336;
+    font-weight: bold;
+}
+
+div.mensaje.success {
+    color: #4CAF50;
+}
+
+div.mensaje p {
+    margin: 5px 0;
+}

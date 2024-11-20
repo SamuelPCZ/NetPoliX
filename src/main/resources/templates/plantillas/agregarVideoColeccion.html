@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Agregar Video a Colección</title>
+    <link rel="stylesheet" href="../StylesAgregarVC.css">
 </head>
 <body>
-    <h1>Agregar Video a Colección</h1>
-    <form action="/agregarVideo" method="post">
-        <label for="coleccionIsan">ISAN de la Colección:</label>
-        <input type="number" id="coleccionIsan" name="coleccionIsan" required>
-        <label for="videoIsan">ISAN del Video:</label>
-        <input type="number" id="videoIsan" name="videoIsan" required>
-        <button type="submit">Agregar Video</button>
-    </form>
+<h1>Agregar Video a Colección</h1>
+<form action="/agregarVideo" method="post">
+    <label for="coleccionIsan">ISAN de la Colección:</label>
+    <input type="number" id="coleccionIsan" name="coleccionIsan" required>
+    <label for="videoIsan">ISAN del Video:</label>
+    <input type="number" id="videoIsan" name="videoIsan" required>
+    <button type="submit">Agregar Video</button>
+</form>
 
-    <div th:if="${tareaFinalizada}" style="color: green;">
-        <p th:text="${tareaFinalizada}"></p>
-    </div>
+<div th:if="${tareaFinalizada}" style="color: green;">
+    <p th:text="${tareaFinalizada}"></p>
+</div>
 
-    <div th:if="${errorColeccion}" style="color: red;">
-        <p th:text="${errorColeccion}"></p>
-    </div>
-    
-    <div th:if="${errorVideo}" style="color: red;">
-        <p th:text="${errorVideo}"></p>
-    </div>
+<div th:if="${errorColeccion}" style="color: red;">
+    <p th:text="${errorColeccion}"></p>
+</div>
 
-    <div th:if="${errorNumero}" style="color: red;">
-        <p th:text="${errorNumero}"></p>
-    </div>
+<div th:if="${errorVideo}" style="color: red;">
+    <p th:text="${errorVideo}"></p>
+</div>
+
+<div th:if="${errorNumero}" style="color: red;">
+    <p th:text="${errorNumero}"></p>
+</div>
 </body>
 </html>

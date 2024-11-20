@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+h1 {
+    color: #fff;
+    font-size: 32px;
+    margin-top: 100px;
+}
+
+div {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+    color: #ddd;
+}
+
+div p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+div p.error-message {
+    color: red;
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 20px;
+    padding: 0;
+}
+
+ul li {
+    background-color: rgba(55, 54, 55, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+ul li p {
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+    color: #ddd;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+form button {
+    background-color: #344e69;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #1d3047;
+}
+
+form p {
+    margin-top: 10px;
+    color: #ccc;
+}
+
+hr {
+    border: 1px solid #555;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+form p {
+    color: white;
+}
+
+form p.error-message {
+    color: red;
+}
+
+form p.success-message {
+    color: green;
+}
+
+form input[type="hidden"] {
+    display: none;
+}
+
+
+@media screen and (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    ul li {
+        padding: 15px;
+    }
+
+    form button {
+        padding: 10px 15px;
+    }
+}

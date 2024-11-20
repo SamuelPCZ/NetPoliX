@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="icon" href="/Imagenes/Logo.png" type="image/png">
-    <link rel="stylesheet" href="/StylesRegistro.css">
+    <link rel="stylesheet" href="../StylesRegistro.css">
 </head>
 <body>
 <div class="container">
     <!-- Logo Superior -->
     <div class="logo">
         <a th:href="@{/home}" class="logo">
-            <img src="Imagenes/Logo.png" alt="Logo">
+            <img src="../Imagenes/Logo.png" alt="Logo">
         </a>
     </div>
 
@@ -20,28 +19,28 @@
     <form class="formulario" th:action="@{/Registrarse}" method="post">
         <div class="input-group">
         <span class="icon">
-            <img src="Imagenes/Correo.png" alt="Correo">
+            <img src="../Imagenes/Correo.png" alt="Correo">
         </span>
             <input type="email" name="email" placeholder="Ingresa tu correo" required>
         </div>
 
         <div class="input-group">
         <span class="icon">
-            <img src="Imagenes/Candado.png" alt="Clave">
+            <img src="../Imagenes/Candado.png" alt="Clave">
         </span>
             <input type="password" name="contraseña" placeholder="Ingresa una clave" required>
         </div>
 
         <div class="input-group">
         <span class="icon">
-            <img src="Imagenes/Usuario.png" alt="Usuario">
+            <img src="../Imagenes/Usuario.png" alt="Usuario">
         </span>
             <input type="text" name="nombreUsuario" placeholder="Nombre de usuario" required>
         </div>
 
         <div class="input-group">
             <span class="icon">
-                <img src="Imagenes/Usuario.png" alt="Referido por">
+                <img src="../Imagenes/Usuario.png" alt="Referido por">
             </span>
             <input type="text" name="referidoPor" placeholder="ID de la persona que te refirió (opcional)">
         </div>

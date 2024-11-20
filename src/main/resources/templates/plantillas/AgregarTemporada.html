@@ -4,45 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Temporada</title>
-    <link rel="stylesheet" href="/Styles.css">
+    <link rel="stylesheet" href="../StylesTemporadas.css">
 </head>
 <body>
 <header>
     <div class="logo">
-        <img src="/Imagenes/Logo.png" alt="NetPoliX Logo">
+        <img src="../Imagenes/logo.png" alt="NetPoliX Logo">
     </div>
     <div class="menu">
-        <a href="/logout" class="btn">Cerrar sesión</a>
+        <a href="/logout" class="btn btnLogout">Cerrar sesión</a>
     </div>
 </header>
 
 <main>
-    <h1>Agregar Nueva Temporada</h1>
+    <div class="agregarTemporadas">
+        <div class="NuevaTemporada">
+            <h1>Agregar Nueva Temporada</h1>
 
-    <form action="/agregarTemporada" method="post">
-        <div class="input-group">
-            <label for="idSerie">ID Serie (Debe existir):</label>
-            <input type="number" id="idSerie" name="idSerie" required>
+            <form action="/agregarTemporada" method="post">
+                <div class="input-group">
+                    <label for="idSerie">ID Serie (Debe existir):</label>
+                    <input type="number" id="idSerie" name="idSerie" required placeholder="Ingrese ID de Serie">
+                </div>
+
+                <div class="input-group">
+                    <label for="numeroTemporada">Número de Temporada:</label>
+                    <input type="number" id="numeroTemporada" name="numeroTemporada" required placeholder="Ingrese Número de Temporada">
+                </div>
+
+                <button type="submit" class="btn btnOk">Agregar Temporada</button>
+            </form>
+
+            <!-- Mensajes de error y éxito -->
+            <div class="messages">
+                <div th:if="${error}" class="error">
+                    <p th:text="${error}"></p>
+                </div>
+                <div th:if="${tareaExitosa}" class="success">
+                    <p th:text="${tareaExitosa}"></p>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <a href="/usuarioPrincipal" class="btn">Volver a la página principal</a>
+            </div>
         </div>
-
-        <div class="input-group">
-            <label for="numeroTemporada">Número de Temporada:</label>
-            <input type="number" id="numeroTemporada" name="numeroTemporada" required>
-        </div>
-
-        <button type="submit" class="btn">Agregar Temporada</button>
-    </form>
-
-    <div th:if="${error}" class="error-message">
-        <p th:text="${error}"></p>
-    </div>
-    <div th:if="${tareaExitosa}" class="success-message">
-        <p th:text="${tareaExitosa}"></p>
-    </div>
-
-    <div class="button-container">
-        <a href="/usuarioPrincipal" class="btn">Volver a la página principal</a>
     </div>
 </main>
+
 </body>
 </html>
+

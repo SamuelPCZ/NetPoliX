@@ -1,0 +1,152 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-image: url('Imagenes/Fondo1.jpg'); 
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #373637;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+header .logo img {
+    width: 150px;
+}
+
+header .menu a {
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #373637;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+header .menu a:hover {
+    background-color: #414042;
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    text-align: center;
+    color: white;
+    margin-top: 80px;
+}
+
+main h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+.form-container {
+    background-color: rgba(55, 54, 55, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+}
+
+
+form {
+    margin-bottom: 20px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #333;
+    color: white;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+
+.btn {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1d3047;
+}
+
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-container a {
+    text-decoration: none;
+    color: white;
+    background-color: #344e69;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button-container a:hover {
+    background-color: #1d3047;
+}

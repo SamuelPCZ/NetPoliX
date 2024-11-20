@@ -1,0 +1,113 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo2.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+
+form {
+    background-color: rgba(55, 54, 55, 0.8);
+    border-radius: 15px;
+    padding: 40px;
+    width: 400px;
+    text-align: left;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    margin-top: 20px;
+}
+
+form ul {
+    list-style: none;
+}
+
+form li {
+    margin-bottom: 20px;
+}
+
+form label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+form input::placeholder {
+    color: #888;
+}
+
+button[type="submit"] {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #1d3047;
+}
+
+select[multiple] {
+    height: 150px;
+}
+
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #344e69;
+}
+
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    button[type="submit"] {
+        padding: 10px;
+    }
+
+    select[multiple] {
+        height: 150px;
+    }
+}

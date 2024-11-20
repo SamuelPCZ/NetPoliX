@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #fff;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+ul li {
+    margin-bottom: 25px;
+    background-color: rgba(55, 54, 55, 0.7);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    color: #ddd;
+}
+
+ul li span {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+form {
+    background-color: rgba(55, 54, 55, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    margin-top: 15px;
+}
+
+form button {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-top: 15px;
+}
+
+form button:hover {
+    background-color: #1d3047;
+}
+
+input[type="hidden"] {
+    display: none;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #373637;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+a:hover {
+    background-color: #414042;
+}
+
+hr {
+    width: 80%;
+    margin: 30px 0;
+    border: 1px solid #555;
+}
+
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    ul li {
+        padding: 10px;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    form button {
+        padding: 10px;
+    }
+
+    a {
+        font-size: 14px;
+    }
+}

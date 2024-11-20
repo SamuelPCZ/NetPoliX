@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background-image: url('Imagenes/Fondo1.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #373637;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+header .logo img {
+    width: 150px;
+}
+
+header .menu a {
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #373637;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+header .menu a:hover {
+    background-color: #414042;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    text-align: center;
+    color: white;
+    max-width: 900px;
+    background-color: rgba(55, 54, 55, 0.7); /* Fondo translúcido */
+    padding: 30px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    font-weight: 600;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+ul li {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+span {
+    font-weight: bold;
+    color: #f0f0f0;
+}
+
+.agregarTemporadas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.NuevaTemporada {
+    background-color: rgba(55, 54, 55, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    color: white;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 220px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-group input {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    background-color: #333;
+    color: white;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+.btn {
+    background-color: #344e69;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1d3047;
+}
+
+.btnLogout {
+    background-color: #f44336;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btnLogout:hover {
+    background-color: #d32f2f;
+}
+
+.messages {
+    margin-top: 20px;
+}
+
+.success {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.error {
+    color: #F44336;
+    font-weight: bold;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button-container a {
+    text-decoration: none;
+    color: white;
+    background-color: #344e69;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.button-container a:hover {
+    background-color: #1d3047;
+}
