@@ -139,7 +139,7 @@ public class CarritoControllerTest {
         when(carritoItemsRepository.findByIdUsuario(1L)).thenReturn(carritoItems);
         when(videoRepository.findById(123)).thenReturn(Optional.of(video));
 
-        String result = carritoController.realizarCompra(principal, model);
+        String result = carritoController.realizarCompra("saldo", principal, model);
 
         assertNotNull(result);
         verify(userRepository).save(usuario);

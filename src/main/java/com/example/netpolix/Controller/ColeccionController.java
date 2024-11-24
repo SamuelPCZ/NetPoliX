@@ -1,5 +1,6 @@
 package com.example.netpolix.Controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,19 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.example.netpolix.Repository.*;
+import com.example.netpolix.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.example.netpolix.Repository.ColeccionRepository;
-import com.example.netpolix.Repository.VideoColeccionRepository;
-import com.example.netpolix.Repository.VideoRepository;
-import com.example.netpolix.model.Coleccion;
-import com.example.netpolix.model.ColeccionVideoDTO;
-import com.example.netpolix.model.Video;
-import com.example.netpolix.model.VideoColeccion;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,14 +22,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class ColeccionController {
 
-    @Autowired
-    ColeccionRepository coleccionRepository;
+    private final ColeccionRepository coleccionRepository;
+    private final VideoColeccionRepository videoColeccionRepository;
+    private final VideoRepository videoRepository;
+    private final CarritoItemsRepository carritoItemsRepository;
+    private final HistorialRepository historialRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    VideoColeccionRepository videoColeccionRepository;
-
-    @Autowired
-    VideoRepository videoRepository;
+    public ColeccionController(ColeccionRepository coleccionRepository, VideoColeccionRepository videoColeccionRepository, VideoRepository videoRepository, CarritoItemsRepository carritoItemsRepository, HistorialRepository historialRepository, UserRepository userRepository) {
+        this.coleccionRepository = coleccionRepository;
+        this.videoColeccionRepository = videoColeccionRepository;
+        this.videoRepository = videoRepository;
+        this.carritoItemsRepository = carritoItemsRepository;
+        this.historialRepository = historialRepository;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/crearColeccion")
     public String crearColeccion() {
@@ -89,12 +92,11 @@ public class ColeccionController {
     }
 
     @GetMapping("/Colecciones")
-    public String verColecciones(Model model) {
-
+    public String verColecciones(Model model, Principal principal) {
+        Usuario usuario = userRepository.findByEmail(principal.getName());
         List<VideoColeccion> coleccionesYVideos = videoColeccionRepository.findAllByOrderByIsanColeccion();
 
-        // Mapa para agrupar los videos por colección con su título
-        Map<String, List<Map<String, String>>> coleccionesMap = new LinkedHashMap<>();
+        Map<String, List<Map<String, Object>>> coleccionesMap = new LinkedHashMap<>();
         Integer lastIsanColeccion = null;
         String tituloColeccion = "Título desconocido";
 
@@ -102,33 +104,28 @@ public class ColeccionController {
             int isanColeccion = item.getIsanColeccion();
             int isanVideo = item.getIsanVideo();
 
-            // Solo obtenemos el título de la colección cuando el isanColeccion cambia
             if (lastIsanColeccion == null || !lastIsanColeccion.equals(isanColeccion)) {
                 Coleccion coleccion = coleccionRepository.findByIsan(isanColeccion);
                 tituloColeccion = coleccion != null ? coleccion.getTitulo() : "Título desconocido";
                 lastIsanColeccion = isanColeccion;
             }
 
-            // Obtenemos el título del video utilizando el isanVideo
             Video video = videoRepository.findByIsan(isanVideo);
             String tituloVideo = video != null ? video.getTitulo() : "Título de video desconocido";
 
-            Map<String, String> videoData = new HashMap<>();
-            videoData.put("titulo", tituloVideo);
-            videoData.put("isan", String.valueOf(isanVideo));
+            boolean enCarrito = carritoItemsRepository.existsByIdUsuarioAndIsan(usuario.getId(), isanVideo);
+            boolean comprado = historialRepository.existsByIdUsuarioAndIsan(usuario.getId(), isanVideo);
 
-            // Agrupamos los datos de los videos por título de colección
+            Map<String, Object> videoData = new HashMap<>();
+            videoData.put("titulo", tituloVideo);
+            videoData.put("isan", isanVideo);
+            videoData.put("enCarrito", enCarrito);
+            videoData.put("comprado", comprado);
+
             coleccionesMap.computeIfAbsent(tituloColeccion, k -> new ArrayList<>()).add(videoData);
         }
 
         model.addAttribute("coleccionesMap", coleccionesMap);
-
-        return "plantillas/misColecciones";
-    }
-
-    @PostMapping("/Colecciones")
-    public String postMethodName(Model model) {
-
         return "plantillas/misColecciones";
     }
 

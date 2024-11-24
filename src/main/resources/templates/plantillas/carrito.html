@@ -8,6 +8,7 @@
 <h1>Carrito de Compras</h1>
 <div th:if="${carritoItems.isEmpty()}">
   <p>No hay ítems en el carrito.</p>
+  <a href="/usuarioPrincipal">Volver a la página principal</a>
 </div>
 <div th:if="${!carritoItems.isEmpty()}">
   <ul>
@@ -26,6 +27,12 @@
   <p><strong>Subtotal:</strong> <span th:text="${subtotal}">Subtotal</span></p>
   <p><strong>Valor Total (después del descuento):</strong> <span th:text="${totalValue}">Valor Total</span></p>
   <form th:action="@{/realizarCompra}" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <label for="metodoPago">Método de Pago:</label>
+    <select name="metodoPago" id="metodoPago">
+      <option value="saldo">Saldo</option>
+      <option value="puntos">Puntos</option>
+    </select>
     <button type="submit">Realizar Compra</button>
     <p>Al dar click, aceptas nuestras <a href="/politicasAlquiler" target="_blank">políticas de alquiler</a>.</p>
   </form>

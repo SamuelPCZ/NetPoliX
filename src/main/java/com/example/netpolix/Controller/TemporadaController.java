@@ -22,6 +22,11 @@ public class TemporadaController {
     @Autowired
     private SerieRepository serieRepository;
 
+    public TemporadaController(TemporadaRepository temporadaRepository, SerieRepository serieRepository) {
+        this.temporadaRepository = temporadaRepository;
+        this.serieRepository = serieRepository;
+    }
+
     @PostMapping("/agregarTemporada")
     @Transactional
     public String postMethodName(

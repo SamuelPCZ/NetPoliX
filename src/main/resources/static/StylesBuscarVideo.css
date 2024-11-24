@@ -84,16 +84,17 @@ select[multiple] {
 
 
 a {
-    color: #fff;
+    color: #ffffff;
+    background-color: #344e69;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 14px;
-    margin-top: 20px;
     font-weight: bold;
-    transition: color 0.3s;
+    transition: background-color 0.3s;
 }
 
 a:hover {
-    color: #344e69;
+    background-color: #1d3047;
 }
 
 

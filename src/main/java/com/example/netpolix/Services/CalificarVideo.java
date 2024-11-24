@@ -15,14 +15,17 @@ import java.util.List;
 @Service
 public class CalificarVideo {
 
-    @Autowired
-    private VideoRepository videoRepository;
+    private final VideoRepository videoRepository;
 
-    @Autowired
-    private CalificacionesRepository calificacionesRepository;
+    private final CalificacionesRepository calificacionesRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public CalificarVideo(VideoRepository videoRepository, CalificacionesRepository calificacionesRepository, UserRepository userRepository) {
+        this.videoRepository = videoRepository;
+        this.calificacionesRepository = calificacionesRepository;
+        this.userRepository = userRepository;
+    }
 
     public void calificarVideo(int isan, int idUsuario, float calificacion) {
         Video video = videoRepository.findByIsan(isan);

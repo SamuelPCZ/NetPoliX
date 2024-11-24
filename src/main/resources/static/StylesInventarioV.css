@@ -75,13 +75,12 @@ hr {
 }
 
 a {
-    color: white;
-    font-size: 16px;
-    text-decoration: none;
-    padding: 10px 20px;
+    color: #ffffff;
     background-color: #344e69;
+    padding: 10px 20px;
     border-radius: 5px;
-    margin-top: 40px;
+    text-decoration: none;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 

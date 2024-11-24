@@ -22,6 +22,11 @@ public class PromocionController {
     @Autowired
     private NotificacionesService notificacionesService;
 
+    public PromocionController(PromocionService promocionService, NotificacionesService notificacionesService) {
+        this.promocionService = promocionService;
+        this.notificacionesService = notificacionesService;
+    }
+
     @PostMapping("/crearPromocion")
     @Transactional
     public String crearPromocion(

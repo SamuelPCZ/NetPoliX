@@ -19,7 +19,9 @@ public class NotificacionesController {
     @Autowired
     private NotificacionesService notificacionesService;
 
-
+    public NotificacionesController(NotificacionesService notificacionesService) {
+        this.notificacionesService = notificacionesService;
+    }
 
     @Transactional
     @GetMapping("/notificaciones")

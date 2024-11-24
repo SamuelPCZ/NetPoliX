@@ -26,6 +26,11 @@ public class SerieController {
     @Autowired
     private TemporadaRepository temporadaRepository;
 
+    public SerieController(SerieRepository serieRepository, TemporadaRepository temporadaRepository) {
+        this.serieRepository = serieRepository;
+        this.temporadaRepository = temporadaRepository;
+    }
+
     @PostMapping("/CrearSerie")
     @Transactional
     public String postMethodName(

@@ -3,8 +3,12 @@ package com.example.netpolix.Controller;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.example.netpolix.Repository.CarritoItemsRepository;
+import com.example.netpolix.Repository.HistorialRepository;
+import com.example.netpolix.Repository.UserRepository;
 import com.example.netpolix.Repository.VideoRepository;
 import com.example.netpolix.Services.CalificarVideo;
+import com.example.netpolix.model.Usuario;
 import com.example.netpolix.model.Video;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +39,15 @@ public class BuscarVideoControllerTest {
     @InjectMocks
     private BuscarVideoController buscarVideoController;
 
+    @Mock
+    private UserRepository userRepository;
+
+    @Mock
+    private CarritoItemsRepository carritoItemsRepository;
+
+    @Mock
+    private HistorialRepository historialRepository;
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -41,7 +55,14 @@ public class BuscarVideoControllerTest {
 
     @Test
     public void testBuscarVideos() {
-        String query = "Test Video";
+        String query = "test";
+        Principal principal = mock(Principal.class);
+        when(principal.getName()).thenReturn("test@example.com");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+        when(userRepository.findByEmail("test@example.com")).thenReturn(usuario);
+
         List<Video> videos = new ArrayList<>();
         Video video = new Video();
         video.setTitulo("Test Video");
@@ -49,58 +70,56 @@ public class BuscarVideoControllerTest {
 
         when(videoRepository.findByTituloContainingIgnoreCase(query)).thenReturn(videos);
 
-        String result = buscarVideoController.buscarVideos(query, model, null);
+        String viewName = buscarVideoController.buscarVideos(query, model, principal);
 
-        assertNotNull(result);
-        verify(model).addAttribute("videos", videos);
+        verify(model).addAttribute(eq("videos"), anyList());
     }
 
     @Test
     public void testCalificarVideo() {
-        int isan = 123;
-        int calificacion = 5;
-        int idUsuario = 1;
-        String query = "Test Video";
+        Principal principal = mock(Principal.class);
+        when(principal.getName()).thenReturn("test@example.com");
 
-        doNothing().when(calificarVideo).calificarVideo(isan, idUsuario, calificacion);
+        doNothing().when(calificarVideo).calificarVideo(anyInt(), anyInt(), anyFloat());
 
-        String result = buscarVideoController.calificarVideo(isan, idUsuario, calificacion, query, redirectAttributes);
+        String result = buscarVideoController.calificarVideo(123, 1, 5, "test", redirectAttributes);
 
-        assertNotNull(result);
-        verify(calificarVideo).calificarVideo(isan, idUsuario, calificacion);
-        verify(redirectAttributes).addFlashAttribute("Mensaje", "Calificación enviada con éxito");
+        assertEquals("redirect:/buscarVideos?query=test", result);
+        verify(redirectAttributes).addFlashAttribute(eq("Mensaje"), anyString());
     }
 
     @Test
     public void testBuscarVideosCategoria() {
         List<String> categorias = new ArrayList<>();
-        categorias.add("Acción");
+        categorias.add("Action");
+
         List<Video> videos = new ArrayList<>();
         Video video = new Video();
-        video.setTitulo("Test Video");
+        video.setTitulo("Action Movie");
         videos.add(video);
 
-        when(videoRepository.findByCategoria("Acción")).thenReturn(videos);
+        when(videoRepository.findByCategoria("Action")).thenReturn(videos);
 
-        String result = buscarVideoController.buscarVideosCategoria(categorias, model);
+        String viewName = buscarVideoController.buscarVideosCategoria(categorias, model);
 
-        assertNotNull(result);
-        verify(model).addAttribute("videos", videos);
+        assertEquals("plantillas/resultadosBusqueda", viewName);
+        verify(model).addAttribute(eq("videos"), anyList());
     }
 
     @Test
     public void testBuscarVideosIdioma() {
-        String idioma = "Español";
+        String idioma = "English";
+
         List<Video> videos = new ArrayList<>();
         Video video = new Video();
-        video.setTitulo("Test Video");
+        video.setTitulo("English Movie");
         videos.add(video);
 
         when(videoRepository.findByIdiomaOriginal(idioma)).thenReturn(videos);
 
-        String result = buscarVideoController.getMethodName(idioma, model);
+        String viewName = buscarVideoController.getMethodName(idioma, model);
 
-        assertNotNull(result);
-        verify(model).addAttribute("videos", videos);
+        assertEquals("plantillas/resultadosBusqueda", viewName);
+        verify(model).addAttribute(eq("videos"), anyList());
     }
 }

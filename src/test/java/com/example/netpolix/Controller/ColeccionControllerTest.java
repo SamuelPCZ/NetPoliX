@@ -1,10 +1,9 @@
 package com.example.netpolix.Controller;
 
 import com.example.netpolix.Controller.ColeccionController;
-import com.example.netpolix.Repository.ColeccionRepository;
-import com.example.netpolix.Repository.VideoRepository;
-import com.example.netpolix.Repository.VideoColeccionRepository;
+import com.example.netpolix.Repository.*;
 import com.example.netpolix.model.Coleccion;
+import com.example.netpolix.model.Usuario;
 import com.example.netpolix.model.Video;
 import com.example.netpolix.model.VideoColeccion;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
-
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,14 @@ public class ColeccionControllerTest {
     @Mock
     private VideoColeccionRepository videoColeccionRepository;
 
+    @Mock
+    private CarritoItemsRepository carritoItemsRepository;
 
+    @Mock
+    private HistorialRepository historialRepository;
+
+    @Mock
+    private UserRepository userRepository;
 
     @Mock
     private Model model;
@@ -96,7 +102,11 @@ public class ColeccionControllerTest {
         when(coleccionRepository.findByIsan(123)).thenReturn(coleccion);
         when(videoRepository.findByIsan(456)).thenReturn(video);
 
-        String viewName = coleccionController.verColecciones(model);
+        Principal principal = mock(Principal.class);
+        when(principal.getName()).thenReturn("test@example.com");
+        when(userRepository.findByEmail("test@example.com")).thenReturn(new Usuario());
+
+        String viewName = coleccionController.verColecciones(model, principal);
 
         verify(model).addAttribute(eq("coleccionesMap"), anyMap());
     }

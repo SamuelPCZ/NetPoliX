@@ -2,6 +2,7 @@ package com.example.netpolix.Controller;
 
 import com.example.netpolix.Repository.*;
 import com.example.netpolix.model.*;
+import lombok.Getter;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,26 +19,29 @@ import java.util.stream.Collectors;
 @Controller
 public class CarritoController {
 
-    @Autowired
-    private CarritoItemsRepository carritoItemsRepository;
+    private final CarritoItemsRepository carritoItemsRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private VideoRepository videoRepository;
+    private final VideoRepository videoRepository;
 
-    @Autowired
-    private TransaccionRepository transaccionRepository;
+    private final TransaccionRepository transaccionRepository;
 
-    @Autowired
-    private HistorialRepository historialRepository;
+    private final HistorialRepository historialRepository;
 
-    @Autowired
-    private InventarioRepository inventarioRepository;
+    private final InventarioRepository inventarioRepository;
 
-    @Autowired
-    private PromocionRepository promocionRepository;
+    private final PromocionRepository promocionRepository;
+
+    public CarritoController(CarritoItemsRepository carritoItemsRepository, UserRepository userRepository, VideoRepository videoRepository, TransaccionRepository transaccionRepository, HistorialRepository historialRepository, InventarioRepository inventarioRepository, PromocionRepository promocionRepository) {
+        this.carritoItemsRepository = carritoItemsRepository;
+        this.userRepository = userRepository;
+        this.videoRepository = videoRepository;
+        this.transaccionRepository = transaccionRepository;
+        this.historialRepository = historialRepository;
+        this.inventarioRepository = inventarioRepository;
+        this.promocionRepository = promocionRepository;
+    }
 
     @GetMapping("/carrito")
     @Transactional
@@ -110,7 +114,8 @@ public class CarritoController {
 
     @PostMapping("/realizarCompra")
     @Transactional
-    public String realizarCompra(Principal principal, Model model) {
+    public String realizarCompra(@RequestParam("metodoPago") String metodoPago, Principal principal, Model model) {
+        System.out.println("realizarCompra method called with metodoPago: " + metodoPago);
         Usuario usuario = userRepository.findByEmail(principal.getName());
         List<CarritoItems> carritoItems = carritoItemsRepository.findByIdUsuario(usuario.getId());
 
@@ -127,16 +132,32 @@ public class CarritoController {
                 .mapToDouble(CarritoItemDTO::getPrecio)
                 .sum();
 
-        if (usuario.getSaldo() < totalValue) {
-            model.addAttribute("mensaje", "Saldo insuficiente para completar la compra.");
+        if ("saldo".equals(metodoPago)) {
+            if (usuario.getSaldo() < totalValue) {
+                model.addAttribute("mensaje", "Saldo insuficiente para completar la compra.");
+                return "redirect:/carrito";
+            }
+            // Deduct total value from user's balance
+            usuario.setSaldo(usuario.getSaldo() - totalValue);
+        } else if ("puntos".equals(metodoPago)) {
+            int puntosNecesarios = (int) (totalValue); // Assuming 1 punto = 0.01 currency unit
+            if (usuario.getPuntos() < puntosNecesarios) {
+                model.addAttribute("mensaje", "Puntos insuficientes para completar la compra.");
+                return "redirect:/carrito";
+            }
+            // Deduct points from user's account
+            usuario.setPuntos(usuario.getPuntos() - puntosNecesarios);
+        } else {
+            model.addAttribute("mensaje", "Método de pago no válido.");
             return "redirect:/carrito";
         }
 
-        // Deduct total value from user's balance
-        usuario.setSaldo(usuario.getSaldo() - totalValue);
-        // Add points to user's account
-        int puntosGanados = (int) (totalValue / 100) * 10;
-        usuario.setPuntos(usuario.getPuntos() + puntosGanados);
+        // Add points to user's account if paid with saldo
+        if ("saldo".equals(metodoPago)) {
+            int puntosGanados = (int) (totalValue / 100) * 10;
+            usuario.setPuntos(usuario.getPuntos() + puntosGanados);
+        }
+
         userRepository.save(usuario);
 
         // Save transaction
@@ -171,6 +192,7 @@ public class CarritoController {
         return "redirect:/carrito";
     }
 
+    @Getter
     public static class CarritoItemDTO {
         private CarritoItems item;
         private String nombreVideo;
@@ -182,16 +204,5 @@ public class CarritoController {
             this.precio = precio;
         }
 
-        public CarritoItems getItem() {
-            return item;
-        }
-
-        public String getNombreVideo() {
-            return nombreVideo;
-        }
-
-        public double getPrecio() {
-            return precio;
-        }
     }
 }

@@ -29,6 +29,11 @@ public class VideoController {
     @Autowired
     private NotificacionesService notificacionesService;
 
+    public VideoController(VideoRepository videoRepository, NotificacionesService notificacionesService) {
+        this.videoRepository = videoRepository;
+        this.notificacionesService = notificacionesService;
+    }
+
     @PostMapping("/SubirVideo")
     @Transactional
     public String SubirVideoABD(

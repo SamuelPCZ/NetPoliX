@@ -22,7 +22,7 @@ public class VideoLog {
 	@Autowired
     private SerieRepository serieRepository;
 
-	@Autowired 
+	@Autowired
 	private VideoRepository videoRepository;
 
 
@@ -51,11 +51,8 @@ public class VideoLog {
 		try {
 			long minutos = Long.parseLong(duracion); 
             Duration duration = Duration.ofMinutes(minutos);
-			if(duration.toMinutes() > 0 && duration.toMinutes() < 240) { //Que no sea 0 y no dure más de 4 horas
-				return true;
-			} else {
-				return false;
-			}		
+            //Que no sea 0 y no dure más de 4 horas
+            return duration.toMinutes() > 0 && duration.toMinutes() < 240;
 		}catch(IllegalArgumentException e) {
 			return false;
 		}
@@ -63,7 +60,7 @@ public class VideoLog {
 
 	public boolean PersonasInvolucradas(String persona){
 
-		if(persona.equals("") || persona.equals(" ")) return false;
+		if(persona.isEmpty() || persona.equals(" ")) return false;
 		//Tiene que haber minimo una persona tanto como director,
 		//actor o productor
 		ArrayList<String> personas = new ArrayList<>();

@@ -78,18 +78,15 @@ ul li p strong {
 
 
 a {
-    font-size: 1rem;
-    color: #4CAF50;
-    margin-top: 20px;
+    color: #ffffff;
+    background-color: #344e69;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    border: 2px solid #4CAF50;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: all 0.3s;
+    transition: background-color 0.3s;
 }
 
 a:hover {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #1d3047;
 }

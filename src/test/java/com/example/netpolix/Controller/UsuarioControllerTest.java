@@ -2,6 +2,8 @@ package com.example.netpolix.Controller;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.netpolix.Repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.netpolix.Repository.UserRepository;
-import com.example.netpolix.Repository.VideoRepository;
-import com.example.netpolix.Repository.HistorialRepository;
-import com.example.netpolix.Repository.InventarioRepository;
 import com.example.netpolix.model.Usuario;
 import com.example.netpolix.model.Video;
 import com.example.netpolix.model.Historial;
@@ -41,6 +39,9 @@ public class UsuarioControllerTest {
 
     @Mock
     private Principal principal;
+
+    @Mock
+    private CalificacionesRepository calificacionesRepository;
 
     @InjectMocks
     private UsuarioController usuarioController;

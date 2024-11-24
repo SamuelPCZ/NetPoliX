@@ -13,11 +13,14 @@ import java.util.List;
 
 @Service
 public class NotificacionesService {
-    @Autowired
-    private NotificacionesRepository notificacionesRepository;
+    private final NotificacionesRepository notificacionesRepository;
 
-    @Autowired
-    private UserRepository usuarioRepository;
+    private final UserRepository usuarioRepository;
+
+    public NotificacionesService(NotificacionesRepository notificacionesRepository, UserRepository usuarioRepository) {
+        this.notificacionesRepository = notificacionesRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @Transactional
     public void sendNotificationToAllUsers(String message, String type) {

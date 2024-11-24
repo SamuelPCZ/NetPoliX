@@ -28,20 +28,23 @@ import java.util.stream.Collectors;
 @Controller
 public class BuscarVideoController {
 
-    @Autowired
-    private VideoRepository videoRepository;
+    private final VideoRepository videoRepository;
 
-    @Autowired
-    private CalificarVideo calificarVideo;
+    private final CalificarVideo calificarVideo;
 
-    @Autowired
-    private CarritoItemsRepository carritoItemsRepository;
+    private final CarritoItemsRepository carritoItemsRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private HistorialRepository historialRepository;
+    private final HistorialRepository historialRepository;
+
+    public BuscarVideoController(VideoRepository videoRepository, CalificarVideo calificarVideo, CarritoItemsRepository carritoItemsRepository, UserRepository userRepository, HistorialRepository historialRepository) {
+        this.videoRepository = videoRepository;
+        this.calificarVideo = calificarVideo;
+        this.carritoItemsRepository = carritoItemsRepository;
+        this.userRepository = userRepository;
+        this.historialRepository = historialRepository;
+    }
 
     @GetMapping("/BuscarVideo")
     public String showBuscarVideo() {

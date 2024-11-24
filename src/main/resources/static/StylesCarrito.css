@@ -29,12 +29,12 @@ h1 {
 div {
     width: 100%;
     max-width: 1200px;
-    padding: 20px;
+    padding: 30px;
     background-color: rgba(55, 54, 55, 0.8);
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     color: white;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 ul {
@@ -103,22 +103,26 @@ button[type="button"]:hover {
 
 div p {
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 a {
-    color: #1e90ff;
+    color: #ffffff;
+    background-color: #344e69;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 a:hover {
-    text-decoration: underline;
+    background-color: #1d3047;
 }
 
 hr {
     border: none;
-    height: 1px;
+    height: 3px;
     background-color: #444;
     margin-top: 20px;
     margin-bottom: 20px;

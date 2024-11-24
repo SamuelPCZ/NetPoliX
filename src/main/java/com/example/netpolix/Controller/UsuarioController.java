@@ -34,6 +34,14 @@ public class UsuarioController {
     @Autowired
     private CalificacionesRepository calificacionesRepository;
 
+    public UsuarioController(UserRepository userRepository, VideoRepository videoRepository, HistorialRepository historialRepository, InventarioRepository inventarioRepository, CalificacionesRepository calificacionesRepository) {
+        this.userRepository = userRepository;
+        this.videoRepository = videoRepository;
+        this.historialRepository = historialRepository;
+        this.inventarioRepository = inventarioRepository;
+        this.calificacionesRepository = calificacionesRepository;
+    }
+
     @Transactional
     @GetMapping("/usuarioPrincipal")
     public String showUsuarioPrincipal(Model model, Principal principal) {

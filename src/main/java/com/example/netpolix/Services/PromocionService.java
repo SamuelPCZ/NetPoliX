@@ -11,11 +11,14 @@ import java.util.List;
 @Service
 public class PromocionService {
 
-    @Autowired
-    private PromocionRepository promocionRepository;
+    private final PromocionRepository promocionRepository;
 
-    @Autowired
-    private NotificacionesService notificacionesService;
+    private final NotificacionesService notificacionesService;
+
+    public PromocionService(PromocionRepository promocionRepository, NotificacionesService notificacionesService) {
+        this.promocionRepository = promocionRepository;
+        this.notificacionesService = notificacionesService;
+    }
 
     public List<Promocion> getActivePromotions() {
         LocalDateTime now = LocalDateTime.now();

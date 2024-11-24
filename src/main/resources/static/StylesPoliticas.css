@@ -53,13 +53,17 @@ p, ul {
 }
 
 a {
-    color: #fff;
+    color: #ffffff;
+    background-color: #344e69;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    transition: color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 a:hover {
-    color: #4CAF50;
+    background-color: #1d3047;
 }
 
 .agreement {
